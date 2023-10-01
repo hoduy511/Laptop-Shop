@@ -1,3 +1,0 @@
-test-branch
-test-branch from Loc
-test-branch from branch FrontEnd-By-Loc
