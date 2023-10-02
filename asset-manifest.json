@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/Laptop-Shop/static/css/main.e793e5ad.css",
+    "main.js": "/Laptop-Shop/static/js/main.de76e123.js",
+    "static/js/787.d3befce1.chunk.js": "/Laptop-Shop/static/js/787.d3befce1.chunk.js",
+    "static/media/fa-solid-900.ttf": "/Laptop-Shop/static/media/fa-solid-900.d75e3fd1eb12e9bd6655.ttf",
+    "static/media/fa-brands-400.ttf": "/Laptop-Shop/static/media/fa-brands-400.016b4a6cdced82ab3aa1.ttf",
+    "static/media/fa-solid-900.woff2": "/Laptop-Shop/static/media/fa-solid-900.b6879d41b0852f01ed5b.woff2",
+    "static/media/fa-brands-400.woff2": "/Laptop-Shop/static/media/fa-brands-400.878f31251d960bd6266f.woff2",
+    "static/media/fa-regular-400.ttf": "/Laptop-Shop/static/media/fa-regular-400.50701fbb8177c2dde530.ttf",
+    "static/media/fa-regular-400.woff2": "/Laptop-Shop/static/media/fa-regular-400.b041b1fa4fe241b23445.woff2",
+    "static/media/fa-v4compatibility.ttf": "/Laptop-Shop/static/media/fa-v4compatibility.c6a0c95b0a95c4553700.ttf",
+    "static/media/fa-v4compatibility.woff2": "/Laptop-Shop/static/media/fa-v4compatibility.1bac2991f3dbfa237aec.woff2",
+    "static/media/logo.svg": "/Laptop-Shop/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Laptop-Shop/index.html",
+    "main.e793e5ad.css.map": "/Laptop-Shop/static/css/main.e793e5ad.css.map",
+    "main.de76e123.js.map": "/Laptop-Shop/static/js/main.de76e123.js.map",
+    "787.d3befce1.chunk.js.map": "/Laptop-Shop/static/js/787.d3befce1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e793e5ad.css",
+    "static/js/main.de76e123.js"
+  ]
+}
