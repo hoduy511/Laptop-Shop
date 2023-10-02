@@ -14,10 +14,10 @@ function App() {
         <Router>
           <NavBar/>
           <Routes>
-            <Route path='/' element={<Home />} exact/>
-            <Route path='/shop' element={<Shop />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/user' element={<User />} />
+            <Route path='/Laptop-Shop/' element={<Home />} exact/>
+            <Route path='/Laptop-Shop/shop' element={<Shop />} />
+            <Route path='/Laptop-Shop/cart' element={<Cart />} />
+            <Route path='/Laptop-Shop/user' element={<User />} />
           </Routes>
         </Router>
     </div>

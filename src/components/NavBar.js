@@ -9,12 +9,12 @@ const NavBar = (props) => {
     return (<>
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="/Laptop-Shop/">React-Bootstrap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link href="/shop">Shop</Nav.Link>
-                    <Nav.Link href="/abouts">Abouts</Nav.Link>
+                    <Nav.Link href="/Laptop-Shop/shop">Shop</Nav.Link>
+                    <Nav.Link href="/Laptop-Shop/abouts">Abouts</Nav.Link>
                     {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
@@ -39,10 +39,10 @@ const NavBar = (props) => {
                     </Form>
                 </Nav>
                 <Nav>
-                    <Nav.Link href="/cart">
+                    <Nav.Link href="/Laptop-Shop/cart">
                     <span><i class="fa-solid fa-cart-shopping"/></span>
                     </Nav.Link>
-                    <Nav.Link href="/user">
+                    <Nav.Link href="/Laptop-Shop/user">
                     <span><i class="fa-solid fa-user"/></span>
                     </Nav.Link>
                 </Nav>
