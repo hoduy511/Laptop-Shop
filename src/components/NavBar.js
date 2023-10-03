@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -15,17 +14,6 @@ const NavBar = (props) => {
                 <Nav className="me-auto">
                     <Nav.Link href="/Laptop-Shop/shop">Shop</Nav.Link>
                     <Nav.Link href="/Laptop-Shop/abouts">Abouts</Nav.Link>
-                    {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">
-                        Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">
-                        Separated link
-                    </NavDropdown.Item>
-                    </NavDropdown> */}
                 </Nav>
                 <Nav className='px-5'>
                     <Form className="d-flex" style={{width: '400px'}}>
@@ -42,7 +30,7 @@ const NavBar = (props) => {
                     <Nav.Link href="/Laptop-Shop/cart">
                     <span><i class="fa-solid fa-cart-shopping"/></span>
                     </Nav.Link>
-                    <Nav.Link href="/Laptop-Shop/user">
+                    <Nav.Link href="/Laptop-Shop/login">
                     <span><i class="fa-solid fa-user"/></span>
                     </Nav.Link>
                 </Nav>
