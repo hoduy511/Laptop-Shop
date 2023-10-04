@@ -1,12 +1,15 @@
 {
-    "version": 2,
     "builds": [
-      { "src": "manage.py", "use": "@vercel/python" }
+      {
+        "src": "testAPI",
+        "use": "@vercel/python"
+      }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/manage.py" }
+      { "src": "/(.*)", "dest": "testAPI/wsgi.py" }
     ],
     "env": {
-      "DJANGO_SETTINGS_MODULE": "testAPI.settings"
+      "PYTHONUNBUFFERED": "1",
+      "PYTHONIOENCODING": "UTF-8"
     }
   }
