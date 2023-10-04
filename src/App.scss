@@ -16,6 +16,17 @@ $button-hover-color: #0056b3;
         .text{
             font-weight: 600;
         }
+        .input-wrapper{
+            position: relative;
+
+            span{
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+        }
         .divider:after,
         .divider:before {
             content: "";
@@ -31,5 +42,90 @@ $button-hover-color: #0056b3;
                 height: 100%;
             }
         }
+
+        .login-btn[disabled], .login-btn:disabled {
+            cursor: not-allowed;
+        }
     }
+
+    .slide-wrapper{
+        max-width: 1440px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .sliderNav{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 15%;
+            
+            li{
+                margin: 5px 0;
+                padding: 10px;
+                background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            li:hover {
+                background-color: #ddd;
+            }
+        }
+    }
+
+    .sliderContent{
+        display: flex;
+        align-items: center;
+        padding: 20px;
+
+        .Card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+          }
+          
+          .product-item {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 15rem;
+            height: 30rem;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+          }
+          
+          img {
+            max-width:90%;
+            height: auto;
+          }
+          
+          .Card.Body {
+            padding: 10px;
+          }
+          
+          .Card.Title {
+            font-size: 18px;
+            font-weight: bold;
+          }
+          
+          .Card.Text {
+            font-size: 14px;
+            margin-top: 10px;
+          }
+          
+          .Button {
+            margin-top: 10px;
+          }
+    }
+
+    @media (min-width: 990px) {
+        .slide-wrapper {
+            padding-top: 17px;
+        }
+    }
+
+    
 }
