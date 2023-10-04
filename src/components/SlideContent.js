@@ -26,7 +26,7 @@ const SlideContent = () => {
         Products.map((item, index)=>{
             return(
                 <div className='product-item'>
-                    <img className='Card.Img' variant="top" src={item.image} />
+                    <img className='Card.Img' variant="top" src={item.image} alt={item.title}/>
                     <div className='Card.Body'>
                         <div className='Card.Title'>{item.title}</div>
                         <div className='Card.Text'>

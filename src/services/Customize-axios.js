@@ -11,6 +11,7 @@ instance.interceptors.response.use(function (response) {
     console.log('check res axios:',response);
     return response.data ? response.data : {statusCode : response.status};
   }, function (error) {
+    console.log('check error axios:',error.message);
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error);

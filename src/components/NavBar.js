@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -5,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const NavBar = (props) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     return (<>
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
             <Container>
@@ -30,7 +33,7 @@ const NavBar = (props) => {
                     <Nav.Link href="/Laptop-Shop/cart">
                     <span><i class="fa-solid fa-cart-shopping"/></span>
                     </Nav.Link>
-                    <Nav.Link href="/Laptop-Shop/login">
+                    <Nav.Link href={isLoggedIn ? "/Laptop-Shop/#":`/Laptop-Shop/login`}>
                     <span><i class="fa-solid fa-user"/></span>
                     </Nav.Link>
                 </Nav>

@@ -1,5 +1,7 @@
-import image from '../draw2.webp';
 import { useState } from 'react';
+import { loginApi } from '../services/UserService';
+
+import sample from '../draw2.webp'
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -7,7 +9,17 @@ const Login = () => {
     const [isShowPassword, setIsShowPassword] = useState("");
 
     const handleLogin = () =>{
-        alert('hello'); 
+       loginApi(email, password)
+      .then(res => {
+        console.log(res);
+        if (res && res.token){
+            localStorage.setItem('token',res.token)
+        }
+      })    
+      .catch(error => {
+        // Xử lý lỗi khi đăng nhập thất bại
+        console.error('Đăng nhập thất bại:', error);
+      });
     }
 
     return (
@@ -16,7 +28,7 @@ const Login = () => {
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-md-9 col-lg-6 col-xl-5">
-                        <img src={image} className="img-fluid" alt="Sample image"/>
+                        <img src={sample} className="img-fluid" alt="Sample"/>
                     </div>
                     <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form>
@@ -54,7 +66,7 @@ const Login = () => {
                         <div className="text-center text-lg-start mt-4 pt-2">
                             <button type="button" disabled={email && password ? false:true}
                             className={email && password ? "active btn btn-primary btn-lg login-btn":"btn btn-primary btn-lg login-btn"}
-                            onClick={() => handleLogin()}>Login</button>
+                            onClick={(email, password) => handleLogin()}>Login</button>
                             <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/Laptop-Shop/register"
                                 className="link-danger">Register</a></p>
                         </div>
