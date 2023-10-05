@@ -7,7 +7,7 @@ function MyComponent() {
 
   useEffect(() => {
     const fetchProducts = () => {
-      const url = "https://b3c4-116-108-2-213.ngrok-free.app/api/products/";
+      const url = "";
     
       return fetch(url, {
         method: "GET",
