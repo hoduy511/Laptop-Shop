@@ -1,16 +1,28 @@
-import { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useEffect, useContext } from 'react';
+import { Nav, Navbar, Container, Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
-const NavBar = (props) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+const NavBar = ( props) => {
+    let navigate = useNavigate();
+    const {logout, user} = useContext(UserContext);
+
+
+    useEffect(()=>{
+        console.log('>>>check log from nav', props.isLoggedIn);
+    })
+
+    const handleLogout = () =>{
+        logout();
+        navigate('/Laptop-Shop/');
+        toast.success('Logout success!')
+
+    }
     return (<>
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-            <Container>
+            <Container className='navbar-container'>
                 <Navbar.Brand href="/Laptop-Shop/">React-Bootstrap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -33,8 +45,13 @@ const NavBar = (props) => {
                     <Nav.Link href="/Laptop-Shop/cart">
                     <span><i class="fa-solid fa-cart-shopping"/></span>
                     </Nav.Link>
-                    <Nav.Link href={isLoggedIn ? "/Laptop-Shop/#":`/Laptop-Shop/login`}>
-                    <span><i class="fa-solid fa-user"/></span>
+                    <Nav.Link className='menu-container' href={user.auth ? `/Laptop-Shop/${user.email}`:`/Laptop-Shop/login`}>
+                            <span className='menu-trigger'><i class="fa-solid fa-user"/></span>
+                            <div class="hover-menu">
+                                <Nav.Link href={!user.auth ? `/Laptop-Shop/login`:`/Laptop-Shop/${user.email}`}>{!user.auth ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
+                                <Nav.Link onClick={()=>handleLogout()}>{!user.auth ? 'Đăng ký':'Đăng xuất'}</Nav.Link>
+                            </div>
+
                     </Nav.Link>
                 </Nav>
                 </Navbar.Collapse>

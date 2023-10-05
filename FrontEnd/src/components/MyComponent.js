@@ -6,18 +6,22 @@ function MyComponent() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://2652-116-108-2-213.ngrok-free.app/api/products/');
-        setData(response.data);
-        console.log('check res', response);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error:', error);
-      }
+    const fetchProducts = () => {
+      const url = "https://b3c4-116-108-2-213.ngrok-free.app/api/products/";
+    
+      return fetch(url, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Do something with the data
+          console.log('check data:',data);
+        });
     };
-
-    fetchData();
+    fetchProducts();
   }, []);
 
   if (loading) {

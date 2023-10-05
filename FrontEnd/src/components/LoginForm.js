@@ -1,26 +1,40 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { loginApi } from '../services/UserService';
+import { UserContext } from '../context/UserContext';
+import { Toast } from 'react-toastify';
 
 import sample from '../draw2.webp'
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
+    let navigate = useNavigate();
+    const {loginContext} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isShowPassword, setIsShowPassword] = useState("");
 
-    const handleLogin = () =>{
-       loginApi(email, password)
-      .then(res => {
-        console.log(res);
+    const handleLogin = async () =>{
+        let res = await loginApi(email, password);
         if (res && res.token){
-            localStorage.setItem('token',res.token)
-        }
-      })    
-      .catch(error => {
+            loginContext(email, res.token);
+            toast.success('Login success!');
+            navigate('/Laptop-Shop/');
+        }   
+        else {
         // Xử lý lỗi khi đăng nhập thất bại
-        console.error('Đăng nhập thất bại:', error);
-      });
+        if(res && res.status === 400){
+            toast.error(res.data.error);
+        }
+        }
     }
+
+    useEffect(()=>{
+        let token = localStorage.getItem('token');
+        if (token){
+            navigate('/Laptop-Shop/');
+        }
+    })
 
     return (
         <>

@@ -1,8 +1,10 @@
 import logo from './logo.svg';
 import './App.scss';
 
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {ToastContainer} from 'react-toastify';
+import { UserContext } from './context/UserContext';
 
 //Component
 import NavBar from './components/NavBar';
@@ -15,12 +17,19 @@ import Abouts from './components/About';
 import MyComponent from './components/MyComponent';
 
 function App() {
+  const {user, loginContext} = useContext(UserContext);
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      loginContext(localStorage.getItem('email'), localStorage.getItem('token'));
+    }
+  }, [])
 
   return (
     <>
     <div className="App">
         <Router>
-          <NavBar/>
+          <NavBar />
           <Routes>
             <Route path='/Laptop-Shop/' element={<Home />} exact/>
             <Route path='/Laptop-Shop/shop' element={<Shop />} />
@@ -30,6 +39,18 @@ function App() {
             <Route path='/Laptop-Shop/abouts' element={<MyComponent />} />
           </Routes>
         </Router>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
     </div>
     </>
   );
