@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.scss';
 
 import React, { useState, useContext, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import { UserContext } from './context/UserContext';
 
@@ -28,7 +28,6 @@ function App() {
   return (
     <>
     <div className="App">
-        <Router>
           <NavBar />
           <Routes>
             <Route path='/Laptop-Shop/' element={<Home />} exact/>
@@ -38,7 +37,6 @@ function App() {
             <Route path='/Laptop-Shop/register' element={<Register />} />
             <Route path='/Laptop-Shop/abouts' element={<MyComponent />} />
           </Routes>
-        </Router>
         <ToastContainer
         position="top-right"
         autoClose={5000}

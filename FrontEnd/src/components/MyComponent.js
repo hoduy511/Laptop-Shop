@@ -7,19 +7,16 @@ function MyComponent() {
 
   useEffect(() => {
     const fetchProducts = () => {
-      const url = "";
-    
-      return fetch(url, {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-        },
+      const url = "https://80ad-116-108-2-213.ngrok-free.app/api/products/1/";
+      return fetch(url).then(
+        resp => resp.json() // this returns a promise
+      ).then(repos => {
+        for (const repo of repos) {
+          console.log(repo.name);
+        }
+      }).catch(ex => {
+        console.error(ex);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          // Do something with the data
-          console.log('check data:',data);
-        });
     };
     fetchProducts();
   }, []);

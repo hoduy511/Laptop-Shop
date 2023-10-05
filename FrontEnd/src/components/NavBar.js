@@ -15,10 +15,13 @@ const NavBar = ( props) => {
     })
 
     const handleLogout = () =>{
+        if(user.auth){
         logout();
         navigate('/Laptop-Shop/');
         toast.success('Logout success!')
-
+        } else{
+        navigate('/Laptop-Shop/register');
+        }
     }
     return (<>
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
