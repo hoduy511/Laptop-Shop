@@ -1,24 +1,20 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import permissions, viewsets
 
-from products.models import Product, Category
+from products.models import Product, ProductCategory
 from products.permissions import IsSellerOrAdmin
-from products.serializers import (
-    CategoryReadSerializer,
-    ProductReadSerializer,
-    ProductWriteSerializer,
-)
+from products.serializers import (ProductCategoryReadSerializer,
+                                  ProductReadSerializer,
+                                  ProductWriteSerializer)
 
 
-class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+class ProductCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     List and Retrieve product categories
     """
 
-    queryset = Category.objects.all()
-    serializer_class = CategoryReadSerializer
+    queryset = ProductCategory.objects.all()
+    serializer_class = ProductCategoryReadSerializer
     permission_classes = (permissions.AllowAny,)
 
 

@@ -1,6 +1,3 @@
-from django.db import models
-
-# Create your models here.
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -16,7 +13,7 @@ def product_image_path(instance, filename):
     return f"product/images/{instance.name}/{filename}"
 
 
-class Category(models.Model):
+class ProductCategory(models.Model):
     name = models.CharField(_("Category name"), max_length=100)
     icon = models.ImageField(upload_to=category_image_path, blank=True)
 
@@ -24,21 +21,21 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = _("Category")
-        verbose_name_plural = _("Categories")
+        verbose_name = _("Product Category")
+        verbose_name_plural = _("Product Categories")
 
     def __str__(self):
         return self.name
 
 
 def get_default_product_category():
-    return Category.objects.get_or_create(name="Others")[0]
+    return ProductCategory.objects.get_or_create(name="Others")[0]
 
 
 class Product(models.Model):
     seller = models.ForeignKey(User, related_name="products", on_delete=models.CASCADE)
     category = models.ForeignKey(
-        Category,
+        ProductCategory,
         related_name="product_list",
         on_delete=models.SET(get_default_product_category),
     )

@@ -1,15 +1,15 @@
 from rest_framework import serializers
 
-from products.models import Product, Category
+from products.models import Product, ProductCategory
 
 
-class CategoryReadSerializer(serializers.ModelSerializer):
+class ProductCategoryReadSerializer(serializers.ModelSerializer):
     """
     Serializer class for product categories
     """
 
     class Meta:
-        model = Category
+        model = ProductCategory
         fields = "__all__"
 
 
@@ -32,7 +32,7 @@ class ProductWriteSerializer(serializers.ModelSerializer):
     """
 
     seller = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    category = CategoryReadSerializer()
+    category = ProductCategoryReadSerializer()
 
     class Meta:
         model = Product
@@ -48,7 +48,7 @@ class ProductWriteSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         category = validated_data.pop("category")
-        instance, created = Category.objects.get_or_create(**category)
+        instance, created = ProductCategory.objects.get_or_create(**category)
         product = Product.objects.create(**validated_data, category=instance)
 
         return product
