@@ -1,0 +1,160 @@
+$primary-color: #007bff;
+$button-hover-color: #0056b3;
+
+.App{
+
+    .login-container{
+        
+        .title{
+            font-size: 23px;
+            font-weight: 800;
+        }
+        .login-btn{
+            padding-left: 2.5rem; 
+            padding-right: 2.5rem;
+        }
+        .text{
+            font-weight: 600;
+        }
+        .input-wrapper{
+            position: relative;
+
+            span{
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+        }
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+        .h-custom {
+            height: calc(100% - 73px);
+        }
+        @media (max-width: 450px) {
+            .h-custom {
+                height: 100%;
+            }
+        }
+
+        .login-btn[disabled], .login-btn:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    .slide-wrapper{
+        max-width: 1440px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .sliderNav{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 15%;
+            
+            li{
+                margin: 5px 0;
+                padding: 10px;
+                background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            li:hover {
+                background-color: #ddd;
+            }
+        }
+    }
+
+    .sliderContent{
+        display: flex;
+        align-items: center;
+        padding: 20px;
+
+        .Card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+          }
+          
+          .product-item {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 15rem;
+            height: 30rem;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+          }
+          
+          img {
+            max-width:90%;
+            height: auto;
+          }
+          
+          .Card.Body {
+            padding: 10px;
+          }
+          
+          .Card.Title {
+            font-size: 18px;
+            font-weight: bold;
+          }
+          
+          .Card.Text {
+            font-size: 14px;
+            margin-top: 10px;
+          }
+          
+          .Button {
+            margin-top: 10px;
+          }
+    }
+
+    @media (min-width: 990px) {
+        .slide-wrapper {
+            padding-top: 17px;
+        }
+    }
+
+    .navbar-container{
+
+        .menu-container{
+            position: relative;
+            display: inline-block;
+            .menu-trigger{
+                cursor: pointer;
+            }
+            .hover-menu{
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 5%;
+                padding: 10px;
+                width: 120px;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .menu-container:hover {
+            .hover-menu{
+                display: block;
+            }
+        }
+    }
+
+    
+}
