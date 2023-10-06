@@ -7,7 +7,7 @@ function MyComponent() {
 
   useEffect(() => {
     const fetchProducts = () => {
-      const url = "https://80ad-116-108-2-213.ngrok-free.app/api/products/1/";
+      const url = "http://127.0.0.1:8000/api/products/";
       return fetch(url).then(
         resp => resp.json() // this returns a promise
       ).then(repos => {

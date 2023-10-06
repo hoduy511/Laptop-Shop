@@ -35,7 +35,7 @@ function App() {
             <Route path='/Laptop-Shop/cart' element={<Cart />} />
             <Route path='/Laptop-Shop/login' element={<Login />} />
             <Route path='/Laptop-Shop/register' element={<Register />} />
-            <Route path='/Laptop-Shop/abouts' element={<MyComponent />} />
+            <Route path='/Laptop-Shop/abouts' element={<Abouts />} />
           </Routes>
         <ToastContainer
         position="top-right"

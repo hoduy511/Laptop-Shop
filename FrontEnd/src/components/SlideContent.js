@@ -18,6 +18,11 @@ const SlideContent = () => {
       getProducts();
     }, []);
 
+    const handleBuy = (item) =>{
+      console.log('>>check item', item);
+
+    }
+
   return (
   <>
     <div className='sliderContent'>
@@ -32,7 +37,7 @@ const SlideContent = () => {
                         <div className='Card.Text'>
                         {item.price}
                         </div>
-                        <Button variant="primary">Go somewhere</Button>
+                        <Button variant="primary" onClick={(item)=>handleBuy()}>Buy</Button>
                     </div>
                 </div>
                 )

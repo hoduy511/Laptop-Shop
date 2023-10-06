@@ -8,4 +8,8 @@ const fetchCategories = (categories) => {
     return axios.get(`/products/categories`)
 }
 
-export {fetchCategories, fetchProducts};
+const fetchIdProduct = (id) =>{
+    return axios.get(`/product/${id}/`)
+}
+
+export {fetchCategories, fetchProducts, fetchIdProduct};

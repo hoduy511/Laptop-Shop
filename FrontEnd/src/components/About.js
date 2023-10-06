@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Abouts = () => {
     const [content, setContent] = useState([]);
-    const apiUrl = "https://d87f-116-108-2-213.ngrok-free.app/snippets/";
+    const apiUrl = `http://127.0.0.1:8000/api/products/`;
 
     useEffect(() => {
         const getContent = async () => {
@@ -18,9 +18,23 @@ const Abouts = () => {
         getContent();
       }, []);
 
+      const handleClick =(item) =>{
+        console.log(item.name);
+      }
+
   return(
     <>
         <div>
+        {content && content.length >0 &&
+        content.map((item, index)=>{
+          return(
+            <>
+              <span onClick={()=> handleClick(item)} key={item.id}>{item.name}</span>
+              <div>{item.category}</div>
+              <div>{item.image}</div>
+            </>
+          )
+        })}
         </div>
     </>
   ) 
