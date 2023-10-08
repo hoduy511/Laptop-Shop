@@ -2,6 +2,13 @@ import axios from "./Customize-axios";
 
 const fetchProducts = (products) => {
     return axios.get(`/products`)
+    .then((response) => {
+        console.log('Data from fetchProducts:', response); // Log dữ liệu ở đây
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
 }
 
 const fetchCategories = (categories) => {

@@ -8,13 +8,7 @@ import { UserContext } from './context/UserContext';
 
 //Component
 import NavBar from './components/NavBar';
-import Home from './components/Home';
-import Cart from './components/Cart';
-import Shop from './components/Shop';
-import Login from './components/LoginForm';
-import Register from './components/RegistrationForm';
-import Abouts from './components/About';
-import MyComponent from './components/MyComponent';
+import AppRouter from './routes/AppRoutes';
 
 function App() {
   const {user, loginContext} = useContext(UserContext);
@@ -29,14 +23,7 @@ function App() {
     <>
     <div className="App">
           <NavBar />
-          <Routes>
-            <Route path='/Laptop-Shop/' element={<Home />} exact/>
-            <Route path='/Laptop-Shop/shop' element={<Shop />} />
-            <Route path='/Laptop-Shop/cart' element={<Cart />} />
-            <Route path='/Laptop-Shop/login' element={<Login />} />
-            <Route path='/Laptop-Shop/register' element={<Register />} />
-            <Route path='/Laptop-Shop/abouts' element={<Abouts />} />
-          </Routes>
+          <AppRouter/>
         <ToastContainer
         position="top-right"
         autoClose={5000}

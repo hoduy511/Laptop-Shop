@@ -1,12 +1,10 @@
 import React from 'react';
-import SlideNav from './SlideNav';
-import SlideContent from './SlideContent';
+
 
 const Home = () => {
 
-  return <div className='slide-wrapper'>
-    <SlideNav/>
-    <SlideContent/>
+  return <div className='home'>
+    Hello HoangLoc
   </div>;
 };
 
