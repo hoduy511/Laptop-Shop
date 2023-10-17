@@ -16,7 +16,8 @@ User = get_user_model()
 
 
 class PhoneNumber(models.Model):
-    user = models.OneToOneField(User, related_name="phone", on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, related_name="phone", on_delete=models.CASCADE)
     phone_number = PhoneNumberField(unique=True)
     security_code = models.CharField(max_length=120)
     is_verified = models.BooleanField(default=False)
@@ -90,7 +91,8 @@ class PhoneNumber(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, related_name="profile", on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="avatar", blank=True)
     bio = models.CharField(max_length=200, blank=True)
 
@@ -111,7 +113,8 @@ class Address(models.Model):
 
     ADDRESS_CHOICES = ((BILLING, _("billing")), (SHIPPING, _("shipping")))
 
-    user = models.ForeignKey(User, related_name="addresses", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="addresses", on_delete=models.CASCADE)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     default = models.BooleanField(default=False)
     country = CountryField()
