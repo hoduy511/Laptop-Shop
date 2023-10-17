@@ -1,32 +1,23 @@
-from django.shortcuts import render
-
 # Create your views here.
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import RegisterView, SocialLoginView
 from dj_rest_auth.views import LoginView
 from django.contrib.auth import get_user_model
+from django.shortcuts import render
 from django.utils.translation import gettext as _
 from rest_framework import permissions, status
-from rest_framework.generics import (
-    GenericAPIView,
-    RetrieveAPIView,
-    RetrieveUpdateAPIView,
-)
+from rest_framework.generics import (GenericAPIView, RetrieveAPIView,
+                                     RetrieveUpdateAPIView)
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from users.models import Address, PhoneNumber, Profile
 from users.permissions import IsUserAddressOwner, IsUserProfileOwner
-from users.serializers import (
-    AddressReadOnlySerializer,
-    PhoneNumberSerializer,
-    ProfileSerializer,
-    UserLoginSerializer,
-    UserRegistrationSerializer,
-    UserSerializer,
-    VerifyPhoneNumberSerialzier,
-)
+from users.serializers import (AddressReadOnlySerializer,
+                               PhoneNumberSerializer, ProfileSerializer,
+                               UserLoginSerializer, UserRegistrationSerializer,
+                               UserSerializer, VerifyPhoneNumberSerialzier)
 
 User = get_user_model()
 
@@ -53,7 +44,8 @@ class UserRegisterationAPIView(RegisterView):
             res = SendOrResendSMSAPIView.as_view()(request._request, *args, **kwargs)
 
             if res.status_code == 200:
-                response_data = {"detail": _("Verification e-mail and SMS sent.")}
+                response_data = {"detail": _(
+                    "Verification e-mail and SMS sent.")}
 
         elif email and not phone_number:
             response_data = {"detail": _("Verification e-mail sent.")}
@@ -89,7 +81,8 @@ class SendOrResendSMSAPIView(GenericAPIView):
             # Send OTP
             phone_number = str(serializer.validated_data["phone_number"])
 
-            user = User.objects.filter(phone__phone_number=phone_number).first()
+            user = User.objects.filter(
+                phone__phone_number=phone_number).first()
 
             sms_verification = PhoneNumber.objects.filter(
                 user=user, is_verified=False

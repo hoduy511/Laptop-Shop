@@ -7,11 +7,9 @@ from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .exceptions import (
-    AccountDisabledException,
-    AccountNotRegisteredException,
-    InvalidCredentialsException,
-)
+from .exceptions import (AccountDisabledException,
+                         AccountNotRegisteredException,
+                         InvalidCredentialsException)
 from .models import Address, PhoneNumber, Profile
 
 User = get_user_model()
@@ -31,7 +29,8 @@ class UserRegistrationSerializer(RegisterSerializer):
         validators=[
             UniqueValidator(
                 queryset=PhoneNumber.objects.all(),
-                message=_("A user is already registered with this phone number."),
+                message=_(
+                    "A user is already registered with this phone number."),
             )
         ],
     )
@@ -42,7 +41,8 @@ class UserRegistrationSerializer(RegisterSerializer):
         phone_number = validated_data.get("phone_number", None)
 
         if not (email or phone_number):
-            raise serializers.ValidationError(_("Enter an email or a phone number."))
+            raise serializers.ValidationError(
+                _("Enter an email or a phone number."))
 
         if validated_data["password1"] != validated_data["password2"]:
             raise serializers.ValidationError(
@@ -80,7 +80,8 @@ class UserLoginSerializer(serializers.Serializer):
 
     phone_number = PhoneNumberField(required=False, allow_blank=True)
     email = serializers.EmailField(required=False, allow_blank=True)
-    password = serializers.CharField(write_only=True, style={"input_type": "password"})
+    password = serializers.CharField(
+        write_only=True, style={"input_type": "password"})
 
     def _validate_phone_email(self, phone_number, email, password):
         user = None
@@ -120,7 +121,8 @@ class UserLoginSerializer(serializers.Serializer):
 
         else:
             if not user.phone.is_verified:
-                raise serializers.ValidationError(_("Phone number is not verified."))
+                raise serializers.ValidationError(
+                    _("Phone number is not verified."))
 
         validated_data["user"] = user
         return validated_data
