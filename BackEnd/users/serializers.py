@@ -7,9 +7,11 @@ from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .exceptions import (AccountDisabledException,
-                         AccountNotRegisteredException,
-                         InvalidCredentialsException)
+from .exceptions import (
+    AccountDisabledException,
+    AccountNotRegisteredException,
+    InvalidCredentialsException,
+)
 from .models import Address, PhoneNumber, Profile
 
 User = get_user_model()

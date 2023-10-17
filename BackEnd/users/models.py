@@ -1,4 +1,3 @@
-# Create your models here.
 import datetime
 
 from django.conf import settings
