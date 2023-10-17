@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     
     # apps
     'users',
+    'products',
 ]
 
 # SIMPLE_JWT = {
