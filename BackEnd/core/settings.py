@@ -157,30 +157,37 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, 
     # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "APP": {
-            "client_id": "972458697499-2hnjci7j7io517p50vkfg72jo34hd0g1.apps.googleusercontent.com",  
-            "secret": "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",
-            "key": "",
-        },
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
-        "AUTH_PARAMS": {
-            "access_type": "online",
-        },
-        "VERIFIED_EMAIL": True,
-    },
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     "google": {
+#         "APP": {
+#             "client_id": "972458697499-2hnjci7j7io517p50vkfg72jo34hd0g1.apps.googleusercontent.com",  
+#             "secret": "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",
+#             "key": "",
+#         },
+#         "SCOPE": [
+#             "profile",
+#             "email",
+#         ],
+#         "AUTH_PARAMS": {
+#             "access_type": "online",
+#         },
+#         "VERIFIED_EMAIL": True,
+#     },
+# }
 
 SITE_ID = 1
 
@@ -219,7 +226,7 @@ TOKEN_EXPIRE_MINUTES = 3
 
 # Twilio
 TWILIO_ACCOUNT_SID = 'AC2d8d4eaaeb079bf8fd4ce1aeaf281937'
-TWILIO_AUTH_TOKEN = '97f96e9c2651f250a784caa38bdb9968'
+TWILIO_AUTH_TOKEN = 'fc2ffc404e40e60ead0f4edce942c9df'
 TWILIO_PHONE_NUMBER = '+12314004678'
 
 

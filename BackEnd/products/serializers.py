@@ -17,9 +17,6 @@ class ProductReadSerializer(serializers.ModelSerializer):
     """
     Serializer class for reading products
     """
-
-    seller = serializers.CharField(
-        source="seller.get_full_name", read_only=True)
     category = serializers.CharField(source="category.name", read_only=True)
 
     class Meta:
@@ -31,14 +28,11 @@ class ProductWriteSerializer(serializers.ModelSerializer):
     """
     Serializer class for writing products
     """
-
-    seller = serializers.HiddenField(default=serializers.CurrentUserDefault())
     category = ProductCategoryReadSerializer()
 
     class Meta:
         model = Product
         fields = (
-            "seller",
             "category",
             "name",
             "desc",
