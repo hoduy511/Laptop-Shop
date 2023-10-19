@@ -1,4 +1,4 @@
-'''
+"""
 URL configuration for core project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,7 +13,7 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-'''
+"""
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import permissions
@@ -34,35 +34,35 @@ from users.views import GoogleLogin
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api/user/", include("users.urls", namespace="users")),
-    path("api/products/", include("products.urls", namespace="products")),
-    # path("api/user/orders/", include("orders.urls", namespace="orders")),
-    # path("api/user/payments/", include("payment.urls", namespace="payment")),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path('admin/', admin.site.urls),
+    path('api/user/', include('users.urls', namespace='users')),
+    path('api/products/', include('products.urls', namespace='products')),
+    # path('api/user/orders/', include('orders.urls', namespace='orders')),
+    # path('api/user/payments/', include('payment.urls', namespace='payment')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(
-        "resend-email/", ResendEmailVerificationView.as_view(), name="rest_resend_email"
+        'resend-email/', ResendEmailVerificationView.as_view(), name='rest_resend_email'
     ),
     re_path(
-        r"^account-confirm-email/(?P<key>[-:\w]+)/$",
+        r'^account-confirm-email/(?P<key>[-:\w]+)/$',
         VerifyEmailView.as_view(),
-        name="account_confirm_email",
+        name='account_confirm_email',
     ),
     path(
-        "account-email-verification-sent/",
+        'account-email-verification-sent/',
         TemplateView.as_view(),
-        name="account_email_verification_sent",
+        name='account_email_verification_sent',
     ),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    path("user/login/google/", GoogleLogin.as_view(), name="google_login"),
-    path("password/reset/", PasswordResetView.as_view(), name="rest_password_reset"),
+    path('user/login/google/', GoogleLogin.as_view(), name='google_login'),
+    path('password/reset/', PasswordResetView.as_view(), name='rest_password_reset'),
     path(
-        "password/reset/confirm/<str:uidb64>/<str:token>",
+        'password/reset/confirm/<str:uidb64>/<str:token>',
         PasswordResetConfirmView.as_view(),
-        name="password_reset_confirm",
+        name='password_reset_confirm',
     ),
-    path("password/change/", PasswordChangeView.as_view(), name="rest_password_change"),
-    path("logout/", LogoutView.as_view(), name="rest_logout"),
+    path('password/change/', PasswordChangeView.as_view(), name='rest_password_change'),
+    path('logout/', LogoutView.as_view(), name='rest_logout'),
 ]
 
 
@@ -71,8 +71,8 @@ schema_view = get_schema_view(
         title='ShopLapTop-API',
         default_version='v1',
         description='APIs for ShopLapTop',
-        contact=openapi.Contact(email="hoduy244@gmail.com"),
-        license=openapi.License(name="Hồ Ngọc Duy"),
+        contact=openapi.Contact(email='hoduy244@gmail.com'),
+        license=openapi.License(name='Hồ Ngọc Duy'),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
