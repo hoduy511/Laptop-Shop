@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-hz#%+dkm&k@=(iwa0-uzsoo8^$h2tkl5634xyn3sw*ef!@^k9e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # others apps
     'django.contrib.sites',
     'rest_framework',
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     # 'drf_spectacular',
-    
+
     # apps
     'users',
     'products',
@@ -114,8 +114,6 @@ DATABASES = {
 }
 
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -166,7 +164,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10, 
+    'PAGE_SIZE': 10,
     # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
@@ -174,7 +172,7 @@ REST_FRAMEWORK = {
 # SOCIALACCOUNT_PROVIDERS = {
 #     "google": {
 #         "APP": {
-#             "client_id": "972458697499-2hnjci7j7io517p50vkfg72jo34hd0g1.apps.googleusercontent.com",  
+#             "client_id": "972458697499-2hnjci7j7io517p50vkfg72jo34hd0g1.apps.googleusercontent.com",
 #             "secret": "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",
 #             "key": "",
 #         },
@@ -192,12 +190,11 @@ REST_FRAMEWORK = {
 SITE_ID = 1
 
 
-
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'phonenumber-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'phonenumber-refresh-token',
-    'RETURN_REFRESH_TOKEN': True,  
+    'RETURN_REFRESH_TOKEN': True,
 }
 
 # ACCOUNT_EMAIL_VERIFICATION SETTINGS
@@ -214,6 +211,15 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'shoplaptop85@gmail.com'
 EMAIL_HOST_PASSWORD = 'unlr cgmc trkg utmn'
+DEFAULT_FROM_EMAIL = 'shoplaptop85@gmail.com'
+
+# <EMAIL_CONFIRM_REDIRECT_BASE_URL>/<key>
+EMAIL_CONFIRM_REDIRECT_BASE_URL = \
+    "http://localhost:3000/email/confirm/"
+
+# <PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL>/<uidb64>/<token>/
+PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = \
+    "http://localhost:3000/password-reset/confirm/"
 
 # Phone number field
 PHONENUMBER_DEFAULT_REGION = 'VN'
