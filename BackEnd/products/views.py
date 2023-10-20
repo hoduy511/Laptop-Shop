@@ -31,8 +31,7 @@ class ProductViewSet(viewsets.ModelViewSet):
             return ProductWriteSerializer
 
         return ProductReadSerializer
-    
-    
+
     def get_permissions(self):
         if self.action in ("create", "update", "partial_update", "destroy"):
             self.permission_classes = (permissions.IsAdminUser, )
