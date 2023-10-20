@@ -14,24 +14,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include, re_path
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from dj_rest_auth.registration.views import VerifyEmailView, ResendEmailVerificationView
-from django.views.generic import TemplateView
+from dj_rest_auth.registration.views import (ResendEmailVerificationView,
+                                             VerifyEmailView)
+from dj_rest_auth.views import (LogoutView, PasswordChangeView,
+                                PasswordResetConfirmView, PasswordResetView)
 from django.conf import settings
 from django.conf.urls.static import static
-from dj_rest_auth.views import PasswordResetView,  PasswordResetConfirmView, PasswordChangeView, LogoutView
+from django.contrib import admin
+from django.urls import include, path, re_path
+from django.views.generic import TemplateView
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
 # from products.views import PublisherDocumentView
 from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
 
-from users.views import GoogleLogin
-
-
+from users.views import (GoogleLogin, email_confirm_redirect,
+                         password_reset_confirm_redirect)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,8 +43,13 @@ urlpatterns = [
     ),
     re_path(
         r'^account-confirm-email/(?P<key>[-:\w]+)/$',
-        VerifyEmailView.as_view(),
+        email_confirm_redirect,
         name='account_confirm_email',
+    ),
+    re_path(
+        r'^account-confirm-email/',
+        VerifyEmailView.as_view(),
+        name='account_email_verification_sent',
     ),
     path(
         'account-email-verification-sent/',
@@ -55,13 +58,20 @@ urlpatterns = [
     ),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('user/login/google/', GoogleLogin.as_view(), name='google_login'),
-    path('password/reset/', PasswordResetView.as_view(), name='rest_password_reset'),
+    path('password/reset/', PasswordResetView.as_view(),
+         name='rest_password_reset'),
     path(
         'password/reset/confirm/<str:uidb64>/<str:token>',
+        password_reset_confirm_redirect,
+        name='password_reset_confirm',
+    ),
+    path(
+        'password/reset/confirm/',
         PasswordResetConfirmView.as_view(),
         name='password_reset_confirm',
     ),
-    path('password/change/', PasswordChangeView.as_view(), name='rest_password_change'),
+    path('password/change/', PasswordChangeView.as_view(),
+         name='rest_password_change'),
     path('logout/', LogoutView.as_view(), name='rest_logout'),
 ]
 
@@ -79,9 +89,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns += [
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc')
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$',
+            schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    re_path(r'^swagger/$', schema_view.with_ui('swagger',
+            cache_timeout=0), name='schema-swagger-ui'),
+    re_path(r'^redoc/$', schema_view.with_ui('redoc',
+            cache_timeout=0), name='schema-redoc')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
