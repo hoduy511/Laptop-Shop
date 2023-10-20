@@ -3,8 +3,11 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import RegisterView, SocialLoginView
 from dj_rest_auth.views import LoginView
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from rest_framework import permissions, status
 from rest_framework.generics import (GenericAPIView, RetrieveAPIView,
@@ -161,3 +164,15 @@ class AddressViewSet(ReadOnlyModelViewSet):
         res = super().get_queryset()
         user = self.request.user
         return res.filter(user=user)
+
+
+def email_confirm_redirect(request, key):
+    return HttpResponseRedirect(
+        f"{settings.EMAIL_CONFIRM_REDIRECT_BASE_URL}{key}/"
+    )
+
+
+def password_reset_confirm_redirect(request, uidb64, token):
+    return HttpResponseRedirect(
+        f"{settings.PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL}{uidb64}/{token}/"
+    )
