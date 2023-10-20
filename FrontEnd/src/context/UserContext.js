@@ -15,12 +15,12 @@ const UserProvider = ({children}) => {
     };
 
     const logout = () =>{
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
+        localStorage.clear();
         setUser((user) =>({
             email: '',
             auth:false
         }));
+
     }
 
     return (

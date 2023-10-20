@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { loginApi } from '../services/UserService';
 import { UserContext } from '../context/UserContext';
-import { Toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginSuccess } from '../store/reducers/userSlice';
 
 import sample from '../draw2.webp'
 import { toast } from 'react-toastify';
@@ -9,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = (props) => {
     let navigate = useNavigate();
+    const dispatch = useDispatch();
     const {loginContext} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,10 +18,14 @@ const Login = (props) => {
 
     const handleLogin = async () =>{
         let res = await loginApi(email, password);
+        console.log('check res>>>',res);
         if (res && res.token){
+            const userInfo = res;
+            console.log('check user info', userInfo);
+            dispatch(loginSuccess(userInfo));
             loginContext(email, res.token);
             toast.success('Login success!');
-            navigate('/Laptop-Shop/');
+            navigate(`/Laptop-Shop/`);
         }   
         else {
         // Xử lý lỗi khi đăng nhập thất bại
@@ -74,14 +80,14 @@ const Login = (props) => {
                                 Remember me
                             </label>
                             </div>
-                            <a href="#!" className="text-body">Forgot password?</a>
+                            <a to="#!" className="text-body">Forgot password?</a>
                         </div>
 
                         <div className="text-center text-lg-start mt-4 pt-2">
                             <button type="button" disabled={email && password ? false:true}
                             className={email && password ? "active btn btn-primary btn-lg login-btn":"btn btn-primary btn-lg login-btn"}
                             onClick={(email, password) => handleLogin()}>Login</button>
-                            <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/Laptop-Shop/register"
+                            <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a to="/Laptop-Shop/register"
                                 className="link-danger">Register</a></p>
                         </div>
 

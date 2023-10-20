@@ -8,9 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import { UserProvider } from './context/UserContext';
 import { BrowserRouter } from 'react-router-dom';
+import 'react-phone-input-2/lib/style.css'
 
 // Redux
-import store from './store/store';
+import {store} from './store/store';
 import { Provider } from 'react-redux';
 
 
@@ -18,11 +19,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <UserProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </UserProvider>
+        <UserProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </UserProvider>
     </Provider>
   </React.StrictMode>
 );

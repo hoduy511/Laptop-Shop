@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProductsFromApi, selectProduct } from '../store/reducers/rootReducers';
+import { fetchProductsFromApi, selectProduct } from '../store/reducers/productSlice';
 
 
 const SlideContent = () => {

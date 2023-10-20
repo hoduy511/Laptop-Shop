@@ -155,6 +155,16 @@ $button-hover-color: #0056b3;
             }
         }
     }
+    .react-tel-input{
+        display: flex;
+        .flag-dropdown{
+            position: relative!important;
+            order: 1;
+        }
+        .form-control{
+            order: 2;
+            padding-left: 15px;
+        }
+    }
 
-    
 }

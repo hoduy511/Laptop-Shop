@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Abouts = () => {
     const [content, setContent] = useState([]);
-    const apiUrl = `http://127.0.0.1:8000/api/products/`;
+    const apiUrl = `https://app.swaggerhub.com/apis/HODUY244/laptop-shop_api/v1#/api/api_user_read`;
 
     useEffect(() => {
         const getContent = async () => {
@@ -18,23 +18,10 @@ const Abouts = () => {
         getContent();
       }, []);
 
-      const handleClick =(item) =>{
-        console.log(item.name);
-      }
-
   return(
     <>
         <div>
-        {content && content.length >0 &&
-        content.map((item, index)=>{
-          return(
-            <>
-              <span onClick={()=> handleClick(item)} key={item.id}>{item.name}</span>
-              <div>{item.category}</div>
-              <div>{item.image}</div>
-            </>
-          )
-        })}
+          Hello
         </div>
     </>
   ) 
