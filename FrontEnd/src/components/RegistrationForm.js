@@ -2,10 +2,10 @@ import image from '../draw2.webp';
 import React, {useEffect, useState} from 'react';
 import PhoneInput from 'react-phone-input-2';
 // import { registerAPi } from '../services/UserService';
-import axios from 'axios';
+import { registerAPi } from '../services/UserService';
 
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const Register = () => {
@@ -20,40 +20,17 @@ const Register = () => {
     const [isShowPassword2, setIsShowPassword2] = useState("");
 
     const handleRegister = () =>{
-        console.log('check email:',email);
-        console.log('check phone:',phoneNumber);
-        console.log('check fn:',firstName);
-        console.log('check ln:',lastName);
-        console.log('check pass:',password);
-        console.log('check pass2:',password2);
-        registerUser();
-        toast.success('Register success!')
+        registerAPi(email, password, password2, firstName, lastName, validPhoneNumber);
     }
-
-    const registerUser = async () =>{
-        try{
-            const res = await axios.post(`http://127.0.0.1:8000/api/user/register/`,{
-                email: email,
-                password1: password,
-                password2: password2,
-                first_name: firstName,
-                last_name: lastName,
-            });
-            console.log('Kết quả từ server:', res)
-        } catch (error){
-            console.error('Lỗi gửi yêu cầu lên POST:',error);
-        }
-    }
-
     const handlePhoneNumber = (value)=>{
         setPhoneNumber(value);
         console.log('>>>check value:', value)
-        // setValidPhoneNumber(validatePhoneNumber(value));
+        setValidPhoneNumber(validatePhoneNumber(value));
         console.log('check valid:',validPhoneNumber)
     }
 
     const validatePhoneNumber = (phoneNumber) =>{
-        const phoneNumberPattern = /^\d{10}$/;
+        const phoneNumberPattern = /^\d{10,11}$/;
         return phoneNumberPattern.test(phoneNumber);
     }
 
@@ -126,8 +103,8 @@ const Register = () => {
                                     <button type="button" disabled={(email || phoneNumber) && password && password2 && firstName && lastName ? false:true}
                                     className={email && phoneNumber && password && password2 && firstName && lastName ? "active btn btn-primary btn-lg login-btn":"btn btn-primary btn-lg login-btn"}
                                     onClick={() => handleRegister()}>Register</button>
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a to="/Laptop-Shop/login"
-                                        className="link-danger">Login</a></p>
+                                    <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <Link to="/Laptop-Shop/login"
+                                        className="link-danger">Login</Link></p>
                                 </div>
                             </form>
                         </div>

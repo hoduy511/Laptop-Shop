@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '@fortawesome/fontawesome-free/css/all.css'
-import { UserProvider } from './context/UserContext';
 import { BrowserRouter } from 'react-router-dom';
 import 'react-phone-input-2/lib/style.css'
 
@@ -14,16 +13,22 @@ import 'react-phone-input-2/lib/style.css'
 import {store} from './store/store';
 import { Provider } from 'react-redux';
 
+// Hook
+import { UserProvider } from './context/UserContext';
+import { AuthProvider } from './context/AuthProvider';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <AuthProvider>
         <UserProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </UserProvider>
+      </AuthProvider>
     </Provider>
   </React.StrictMode>
 );

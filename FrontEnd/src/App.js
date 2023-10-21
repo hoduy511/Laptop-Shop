@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.scss';
 
-import React, { useState, useContext, useEffect } from "react";
-import { Routes, Route} from 'react-router-dom';
+import React, {useContext, useEffect } from "react";
 import {ToastContainer} from 'react-toastify';
 import { UserContext } from './context/UserContext';
 
@@ -26,7 +24,7 @@ function App() {
           <AppRouter/>
         <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -1,21 +1,52 @@
 import axios from "./Customize-axios.js";
 
-const loginApi = (username, password) => {
-    return axios.post(`https://reqres.in/api/login`,{
-        username: username,
-        password: password
-    })
+const loginApi = (email, password) => {
+    try{
+        return axios.post(`/api/user/login/`,
+            JSON.stringify({ email, password }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+        )
+    } catch(error){
+        console.error('Đăng nhập thất bại:',error);
+    } 
 }
-
-const registerAPi = (email, password1, password2, first_name, last_name, phone_number) =>{
-    return axios.post(`url`,{
-        email: email,
-        password1: password1,
-        password2: password2,
-        first_name: first_name,
-        last_name: last_name,
-        phone_number: phone_number
-    })
+const registerAPi = (email, password1, password2, first_name, last_name, phone_number, validPhoneNumber) =>{
+    try{
+        if (validPhoneNumber && email){
+            return axios.post(`/api/user/register/`,{
+                email: email,
+                password1: password1,
+                password2: password2,
+                first_name: first_name,
+                last_name: last_name,
+                phone_number: phone_number,
+            });
+        } else if(validPhoneNumber && !email){
+            return axios.post(`/api/user/register/`,{
+                password1: password1,
+                password2: password2,
+                first_name: first_name,
+                last_name: last_name,
+                phone_number: phone_number,
+            });
+        } else if(!validPhoneNumber && email){
+            return axios.post(`/api/user/register/`,{
+                email: email,
+                password1: password1,
+                password2: password2,
+                first_name: first_name,
+                last_name: last_name,
+            });
+        } else{
+            console.log('validate:',validPhoneNumber);
+            alert('Lỗi cú pháp!');
+        }
+    } catch (error){
+        console.error('Lỗi gửi yêu cầu lên POST:',error);
+    }
 }
 
 export {loginApi, registerAPi};

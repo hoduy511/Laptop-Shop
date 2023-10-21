@@ -8,8 +8,8 @@ const SliderNav = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetchCategories();
-        setCategories(res);
+        const response = await fetchCategories();
+        setCategories(response);
       } catch (error) {
         console.error('Lỗi khi tải danh mục:', error);
       }

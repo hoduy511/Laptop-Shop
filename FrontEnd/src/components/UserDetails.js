@@ -6,11 +6,10 @@ import { connect } from 'react-redux';
 const UserDetails = () => {
   const user = useSelector((state) => state.user.user);
   console.log('check user>>>',user);
-
   return (
     <div>
       <h2>Thông tin người dùng</h2>
-      <p>Email: {user.token}</p>
+      <p>Email: {user.access}</p>
       {/* Hiển thị thông tin khác của người dùng */}
     </div>
   );

@@ -9,6 +9,7 @@ import SingleProduct from "../components/SingleProduct";
 import UserDetails from "../components/UserDetails";
 import Abouts from "../components/About";
 import MyComponent from "../components/MyComponent";
+import VerifyEmailView from "../views/VerifyEmailView";
 
 const AppRouter = () =>{
 
@@ -23,6 +24,7 @@ const AppRouter = () =>{
             <Route path='/Laptop-Shop/abouts' element={<MyComponent />} />
             <Route path='/Laptop-Shop/shop/:title' element={<SingleProduct />} />
             <Route path='/Laptop-Shop/:email' element={<UserDetails />} />
+            <Route path='/email/confirm/:key' element={<VerifyEmailView />} />
           </Routes>
         </>
     )

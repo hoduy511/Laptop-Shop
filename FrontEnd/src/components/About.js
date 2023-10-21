@@ -8,9 +8,9 @@ const Abouts = () => {
     useEffect(() => {
         const getContent = async () => {
           try {
-            const res = await axios.get(apiUrl);
-            console.log('check res from about>>>', res);
-            setContent(res.data);
+            const response = await axios.get(apiUrl);
+            console.log('check response from about>>>', response);
+            setContent(response.data);
           } catch (error) {
             console.error('Lỗi khi tải danh mục:', error);
           }

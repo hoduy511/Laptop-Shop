@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../services/Customize-axios'; // Import Axios from the axios library
 
 function MyComponent() {
   const [data, setData] = useState(null);
@@ -7,17 +7,18 @@ function MyComponent() {
 
   useEffect(() => {
     const fetchProducts = () => {
-      const url = "http://127.0.0.1:8000/api/products/";
-      return fetch(url).then(
-        resp => resp.json() // this returns a promise
-      ).then(repos => {
-        for (const repo of repos) {
-          console.log(repo.name);
-        }
-      }).catch(ex => {
-        console.error(ex);
-      })
+      const url = "/api/products/";
+      axios.get(url) // Use Axios to send a GET request
+        .then(response => {
+          setData(response.data); // Set the data with the response
+          setLoading(false); // Set loading to false
+        })
+        .catch(error => {
+          console.error(error);
+          setLoading(false); // Set loading to false in case of an error
+        });
     };
+
     fetchProducts();
   }, []);
 
