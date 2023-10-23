@@ -32,15 +32,7 @@ class ProductWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = (
-            "category",
-            "name",
-            "desc",
-            "image",
-            "price",
-            "quantity",
-        )
-
+        fields = "__all__"
     def create(self, validated_data):
         category = validated_data.pop("category")
         instance, created = ProductCategory.objects.get_or_create(**category)
