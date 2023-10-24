@@ -1,6 +1,5 @@
 from rest_framework import serializers
-
-from products.models import Product, ProductCategory
+from products.models import Product, ProductCategory, ProductImage
 
 
 class ProductCategoryReadSerializer(serializers.ModelSerializer):
@@ -12,12 +11,20 @@ class ProductCategoryReadSerializer(serializers.ModelSerializer):
         model = ProductCategory
         fields = "__all__"
 
+class ProductImageSerializer(serializers.ModelSerializer):
+    """
+    Serializer class for reading product images
+    """
 
+    class Meta:
+        model = ProductImage
+        fields = "__all__"
 class ProductReadSerializer(serializers.ModelSerializer):
     """
     Serializer class for reading products
     """
     category = serializers.CharField(source="category.name", read_only=True)
+    image = ProductImageSerializer(many=True)
 
     class Meta:
         model = Product

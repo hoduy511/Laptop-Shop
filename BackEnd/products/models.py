@@ -41,7 +41,7 @@ class Product(models.Model):
     )
     name = models.CharField(max_length=200)
     desc = models.TextField(_("Description"), blank=True)
-    image = models.ImageField(upload_to=product_image_path, blank=True)
+    image = models.ManyToManyField('ProductImage', related_name="product_images", blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     quantity = models.IntegerField(default=1)
     
@@ -128,3 +128,14 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
+class ProductImage(models.Model):
+    IMAGE_CHOICES = ((("COVER-IMAGE"), _("cover-image")),
+                     (("SLIDE-IMAGES"), _("slide-images")),)
+    
+    image = models.ImageField(upload_to=product_image_path)
+    name = models.CharField(max_length=255, choices=IMAGE_CHOICES, unique=False)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    
+    def __str__(self) -> str:
+        return self.name
