@@ -197,6 +197,8 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'phonenumber-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'phonenumber-refresh-token',
     'RETURN_REFRESH_TOKEN': True,
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_SECURE': True,
 }
 
 # ACCOUNT_EMAIL_VERIFICATION SETTINGS
