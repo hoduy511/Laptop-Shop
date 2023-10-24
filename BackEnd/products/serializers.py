@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from products.models import Product, ProductCategory, ProductImage
 
 
@@ -11,6 +12,7 @@ class ProductCategoryReadSerializer(serializers.ModelSerializer):
         model = ProductCategory
         fields = "__all__"
 
+
 class ProductImageSerializer(serializers.ModelSerializer):
     """
     Serializer class for reading product images
@@ -19,6 +21,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = "__all__"
+
+
 class ProductReadSerializer(serializers.ModelSerializer):
     """
     Serializer class for reading products
@@ -40,6 +44,7 @@ class ProductWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
+
     def create(self, validated_data):
         category = validated_data.pop("category")
         instance, created = ProductCategory.objects.get_or_create(**category)
