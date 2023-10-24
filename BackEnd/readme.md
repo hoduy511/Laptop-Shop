@@ -1,5 +1,3 @@
-- python3 manage.py makemigrations users
-- python3 manage.py makemigrations products
 - python3 manage.py migrate
 - python3 manage.py createsuperuser
 - python3 manage.py runserver
