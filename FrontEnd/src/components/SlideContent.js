@@ -1,61 +1,88 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProductsFromApi, selectProduct } from '../store/reducers/productSlice';
+import { fetchProductsFromApi, fetchIdProductFromApi } from '../store/reducers/productSlice';
+import { fetchProducts, fetchIdProduct } from '../services/ProductService';
 
+const SlideContent = ({ selectedCategory }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const products = useSelector((state) => state.products.products);
+  const [products, setProducts] = useState();
+  const status = useSelector((state) => state.products.status);
+  const error = useSelector((state) => state.products.error);
 
-const SlideContent = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const products = useSelector((state) => state.products.products);
-    const status = useSelector((state) => state.products.status);
-    const error = useSelector((state) => state.products.error);
+  // useEffect(() => {
+  //   if (status === 'idle') {
+  //     dispatch(fetchProductsFromApi());
+  //   }
+  // }, [status, dispatch]);
 
-    useEffect(() => {
-      if (status === 'idle') {
-        dispatch(fetchProductsFromApi());
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await fetchProducts();
+        setProducts(response);
+      } catch (error) {
+        console.error('Lỗi khi tải danh mục:', error);
       }
-    }, [status, dispatch]);
+    };
+    getCategories();
+  }, []);
 
-    if (status === 'loading') {
-      return <div>Loading...</div>;
-    }
-  
-    if (status === 'failed') {
-      return <div>Error: {error}</div>;
-    }
+  // Filter products based on the selected category
+  const filteredProducts = selectedCategory
+    ? products.filter((item) => item.category === selectedCategory)
+    : products;
 
-    const handleBuy = (item) =>{
-      console.log('>>check item', item);
-      dispatch(selectProduct(item));
-      // Chuyển hướng đến trang thông tin sản phẩm dựa trên productName
-      navigate(`/Laptop-Shop/shop/${item.title}`);
-    }
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'failed') {
+    return <div>Error: {error}</div>;
+  }
+
+  const handleBuy = async (item) => {
+    console.log('>>check item', item.id);
+    const response = await fetchProducts(item.id);
+    // dispatch(fetchIdProductFromApi(item.id));
+    // Chuyển hướng đến trang thông tin sản phẩm dựa trên productName
+    navigate(`/Laptop-Shop/shop/${item.name}`, {
+      state: {
+        product: response , 
+      }
+    });
+  }
+
+  const handleAddToCart = (item) => {
+    
+  }
 
   return (
-  <>
-    <div className='sliderContent'>
+    <>
+      <div className='sliderContent'>
         <div className='Card'>
-        {products && products.length>0 && 
-        products.map((item, index)=>{
-            return(
+          {filteredProducts && filteredProducts.length > 0 &&
+            filteredProducts.map((item, index) => {
+              return (
                 <div key={item.id} className='product-item'>
-                    <img className='Card.Img' variant="top" src={item.image} alt={item.title}/>
-                    <div className='Card.Body'>
-                        <div className='Card.Title'>{item.title}</div>
-                        <div className='Card.Text'>
-                        {item.price}
-                        </div>
-                        <Button variant="primary" onClick={()=>handleBuy(item)}>Buy</Button>
+                  <img className='Card.Img' variant="top" src={item.image} alt={item.name} />
+                  <div className='Card.Body'>
+                    <div className='Card.Title'>{item.name}</div>
+                    <div className='Card.Text'>
+                      {item.price}
                     </div>
+                    <Button variant="primary" onClick={() => handleBuy(item)}>Buy</Button>
+                  </div>
                 </div>
-                )
-        })}
+              )
+            })}
         </div>
-    </div>
-  </>
-  )
+      </div>
+    </>
+  );
 };
 
 export default SlideContent;

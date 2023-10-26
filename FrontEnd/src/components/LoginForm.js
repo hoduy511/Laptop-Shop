@@ -1,16 +1,12 @@
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { loginApi } from '../services/UserService';
-import { UserContext } from '../context/UserContext';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '../store/reducers/userSlice';
-import useAuth from '../hooks/useAuth';
 
 import sample from '../draw2.webp'
-import { toast } from 'react-toastify';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Login = (props) => {
-    const {setAuth} = useAuth();
 
     let navigate = useNavigate();    
     const location = useLocation();
@@ -20,7 +16,6 @@ const Login = (props) => {
     const errRef = useRef();
 
     const dispatch = useDispatch();
-    const {loginContext} = useContext(UserContext);
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [isShowPassword, setIsShowPassword] = useState("");
@@ -29,15 +24,9 @@ const Login = (props) => {
     const handleLogin = async () =>{
         try {
             let response = await loginApi(user, password);
-            console.log('check response>>>',response);
-                const userInfo = response.data;
+                const userInfo = response;
                 console.log('check user info', userInfo);
-                const accessToken = response.data.access;
-                console.log('check access:', response.data.access);
-                setAuth({user, password, accessToken});
                 dispatch(loginSuccess(userInfo));
-                loginContext(user, response.data.access, response.data.refresh);
-                toast.success('Login success!');
                 setUser('');
                 setPassword('');
                 navigate(from, { replace: true });

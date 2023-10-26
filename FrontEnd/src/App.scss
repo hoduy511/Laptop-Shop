@@ -75,6 +75,11 @@ $button-hover-color: #0056b3;
             li:hover {
                 background-color: #ddd;
             }
+
+            .selected {
+                background-color: #007BFF; /* Màu nền khi được chọn */
+                color: #fff; /* Màu chữ khi được chọn */
+              }
         }
     }
 

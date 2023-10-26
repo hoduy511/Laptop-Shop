@@ -1,38 +1,26 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { selectProduct } from '../store/reducers/productSlice';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useParams} from 'react-router-dom';
+import {fetchIdProduct} from '../services/ProductService';
 
 const SingleProduct = () => {
-  const { productName } = useParams();
-  const selectedProduct = useSelector((state) => state.products.selectedProduct);
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const [product, setProduct] = location.state?.product;
 
-  useEffect(() =>{
-    if (!selectedProduct){
-      const productFromLocalStorage = JSON.parse(localStorage.getItem('reduxState'));
-      if (productFromLocalStorage) {
-        const productToSelect = productFromLocalStorage.products.selectedProduct;
-        dispatch(selectProduct(productToSelect));
-        console.log('Đã cập nhật:', productToSelect);
-      }
 
-    }
-  }, [dispatch, selectedProduct])
-
-  if (!selectedProduct) {
-    return <div>Không tìm thấy sản phẩm</div>;
+  if (!product) {
+      
+      return <div>Loading...</div>
   }
 
   return (
     <div>
-      <h2>Chi tiết sản phẩm: {selectedProduct.title}</h2>
-      <img src={selectedProduct.image} alt={selectedProduct.title} />
-      <p>Price: ${selectedProduct.price}</p>
-      <p>Mô tả: {selectedProduct.description}</p>
-      {/* Hiển thị thông tin chi tiết khác của sản phẩm */}
+      <h2>{product.name}</h2>
+      <p>Category: {product.category}</p>
+      <p>Price: ${product.price}</p>
+      <p>Description: {product.desc}</p>
+      {/* Hiển thị các thông tin khác của sản phẩm tại đây */}
     </div>
-  );
-};
+  )
+}
 
 export default SingleProduct;

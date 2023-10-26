@@ -4,7 +4,6 @@ import PhoneInput from 'react-phone-input-2';
 // import { registerAPi } from '../services/UserService';
 import { registerAPi } from '../services/UserService';
 
-import { toast } from 'react-toastify';
 import { useNavigate, Link } from 'react-router-dom';
 
 

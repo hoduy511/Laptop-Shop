@@ -1,24 +1,33 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Nav, Navbar, Container, Form, Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
+import { logout } from '../store/reducers/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const NavBar = ( props) => {
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+    const user = useSelector(state=>state.user.user);
+
+
     let navigate = useNavigate();
-    const {logout, user} = useContext(UserContext);
 
 
+    const handleLogout  = () =>{
+        dispatch(logout());
+    }
 
-    const handleLogout = () =>{
-        if(user.auth){
-        logout();
-        toast.success('Logout success!')
-        navigate('/Laptop-Shop/')
-        } else{
-        navigate('/Laptop-Shop/register');
-        }
+    const renderAuthButton = () =>{
+        if (isLoggedIn) {
+            return (
+              <Nav.Link as={Link} onClick={() =>handleLogout()}>Đăng xuất</Nav.Link>
+            );
+          } else {
+            return (
+              <Nav.Link as={Link} to={'/Laptop-Shop/register'}>Đăng ký</Nav.Link>
+            );
+          }
     }
     return (<>
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -45,11 +54,11 @@ const NavBar = ( props) => {
                     <Nav.Link to="/Laptop-Shop/cart">
                     <span><i class="fa-solid fa-cart-shopping"/></span>
                     </Nav.Link >
-                    <Nav.Link as={Link} className='menu-container' to={user.auth ? `/Laptop-Shop/${user.email}`:`/Laptop-Shop/login`}>
+                    <Nav.Link as={Link} className='menu-container' to={!isLoggedIn ? `/Laptop-Shop/abouts`:`/Laptop-Shop/login`}>
                             <span className='menu-trigger'><i class="fa-solid fa-user"/></span>
                             <div class="hover-menu">
-                                <Nav.Link as={Link} to={!user.auth ? `/Laptop-Shop/login`:`/Laptop-Shop/${user.email}`}>{!user.auth ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
-                                <Nav.Link onClick={()=>handleLogout()}>{!user.auth ? 'Đăng ký':'Đăng xuất'}</Nav.Link>
+                                <Nav.Link as={Link} to={!isLoggedIn ? `/Laptop-Shop/login`:`/Laptop-Shop/abouts`}>{!isLoggedIn ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
+                                {renderAuthButton()}
                             </div>
                     </Nav.Link>
                 </Nav>

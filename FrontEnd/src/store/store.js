@@ -1,22 +1,16 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import reduxLocalStorageMiddleware from './reduxLocalStorageMiddleware';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './reducers/authSlice';
+import userReducer from './reducers/userSlice';
+import productReducer from './reducers/productSlice';
 
-import productsReducer from './reducers/productSlice'
-import userSlice from './reducers/userSlice';
-import authSlice from './reducers/authSlice';
-
-const middleware = [
-  ...getDefaultMiddleware(),
-  reduxLocalStorageMiddleware,
-]
-
-export const store = configureStore({
+export default configureStore({
   reducer: {
-    products: productsReducer,
-    user: userSlice,
-    auth: authSlice
+    auth: authReducer,
+    user: userReducer,
+    products: productReducer
   },
-  middleware: middleware,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
-
-export default store;

@@ -12,6 +12,7 @@ const ProductList = () => {
     if (status === 'idle') {
       dispatch(fetchProductsFromApi());
     }
+    console.log('product:',products);
   }, [status, dispatch]);
 
   if (status === 'loading') {
@@ -22,16 +23,18 @@ const ProductList = () => {
     return <div>Error: {error}</div>;
   }
 
+
   return (
     <div>
       <h1>Product List</h1>
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <h3>{product.title}</h3>
+            {console.log(product)}
+            <img src={product.image} alt={product.name} />
+            <h3>{product.name}</h3>
             <p>Price: ${product.price}</p>
-            <p>{product.description}</p>
+            <p>{product.desc}</p>
           </li>
         ))}
       </ul>

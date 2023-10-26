@@ -10,7 +10,7 @@ instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     console.log('check response axios:',response);
-    return response.data ? response : {statusCode : response.status};
+    return response.data ? response.data : {statusCode : response.status};
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
@@ -36,7 +36,6 @@ instance.interceptors.response.use(function (response) {
 
 export default instance;
 
-// -----------------------------
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: {"Content-Type": 'application/json'},
