@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React from 'react';
 import { Nav, Navbar, Container, Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../store/reducers/userSlice';
@@ -10,7 +10,6 @@ const NavBar = ( props) => {
     const isLoggedIn = useSelector(state => state.user.isLoggedIn);
     const user = useSelector(state=>state.user.user);
 
-
     let navigate = useNavigate();
 
 
@@ -21,7 +20,7 @@ const NavBar = ( props) => {
     const renderAuthButton = () =>{
         if (isLoggedIn) {
             return (
-              <Nav.Link as={Link} onClick={() =>handleLogout()}>Đăng xuất</Nav.Link>
+              <Nav.Link as={Link} onClick={() =>handleLogout()} to={'/Laptop-Shop/'}>Đăng xuất</Nav.Link>
             );
           } else {
             return (
@@ -29,6 +28,8 @@ const NavBar = ( props) => {
             );
           }
     }
+
+    
     return (<>
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
             <Container className='navbar-container'>
@@ -54,10 +55,10 @@ const NavBar = ( props) => {
                     <Nav.Link to="/Laptop-Shop/cart">
                     <span><i class="fa-solid fa-cart-shopping"/></span>
                     </Nav.Link >
-                    <Nav.Link as={Link} className='menu-container' to={!isLoggedIn ? `/Laptop-Shop/abouts`:`/Laptop-Shop/login`}>
+                    <Nav.Link as={Link} to={!isLoggedIn ? `/Laptop-Shop/login`:(isLoggedIn ? `/Laptop-Shop/${user.email}` : `/Laptop-Shop/login`)} className='menu-container'>
                             <span className='menu-trigger'><i class="fa-solid fa-user"/></span>
                             <div class="hover-menu">
-                                <Nav.Link as={Link} to={!isLoggedIn ? `/Laptop-Shop/login`:`/Laptop-Shop/abouts`}>{!isLoggedIn ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
+                                <Nav.Link as={Link} to={!isLoggedIn ? `/Laptop-Shop/login`:(isLoggedIn ? `/Laptop-Shop/${user.email}` : `/Laptop-Shop/login`)}>{!isLoggedIn ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
                                 {renderAuthButton()}
                             </div>
                     </Nav.Link>

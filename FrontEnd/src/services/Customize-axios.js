@@ -1,9 +1,12 @@
 import axios from "axios";
+
 const BASE_URL='http://127.0.0.1:8000/';
+
 
 const instance = axios.create({
     baseURL: BASE_URL
 });
+
 
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
@@ -39,5 +42,5 @@ export default instance;
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: {"Content-Type": 'application/json'},
-  withCredentials:true
 })
+

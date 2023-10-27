@@ -49,4 +49,14 @@ const registerAPi = (email, password1, password2, first_name, last_name, phone_n
     }
 }
 
-export {loginApi, registerAPi};
+const logoutApi = (accessToken) =>{
+    try{
+        return axios.post(`/dj-rest-auth/logout/`,{
+            headers: {"Authorization": `Bearer ${accessToken}`}
+        })
+    } catch(error){
+        console.error('Đăng nhập thất bại:',error);
+    } 
+}
+
+export {loginApi, registerAPi, logoutApi};

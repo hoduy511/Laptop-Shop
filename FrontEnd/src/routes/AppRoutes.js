@@ -23,7 +23,8 @@ const AppRouter = () =>{
                 <Route path='/Laptop-Shop/register' element={<Register />} />
                 <Route path='/Laptop-Shop/mycomponent' element={<MyComponent />} />
                 <Route path='/Laptop-Shop/shop/:name' element={<SingleProduct />} />
-                <Route path='/Laptop-Shop/abouts' element={<UserProfile />} />
+                <Route path='/Laptop-Shop/:email' element={<UserProfile />} />
+                <Route path='/Laptop-Shop/abouts' element={<Abouts />} />
                 <Route path='/email/confirm/:key' element={<VerifyEmailView />} />
           </Routes>
         </>
