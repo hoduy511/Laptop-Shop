@@ -43,10 +43,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
             error = {"product": _("Product already exists in your order.")}
             raise serializers.ValidationError(error)
 
-        if self.context["request"].user == product.seller:
-            error = _("Adding your own product to your order is not allowed")
-            raise PermissionDenied(error)
-
         return validated_data
 
     def get_price(self, obj):

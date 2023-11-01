@@ -48,7 +48,7 @@ class IsOrderItemPending(BasePermission):
     """
     Check the status of order is pending or completed before creating, updating and deleting order items
     """
-
+    
     message = _(
         "Creating, updating or deleting order items for a closed order is not allowed."
     )
