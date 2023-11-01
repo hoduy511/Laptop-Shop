@@ -35,8 +35,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', include('users.urls', namespace='users')),
     path('api/products/', include('products.urls', namespace='products')),
-    # path('api/user/orders/', include('orders.urls', namespace='orders')),
-    # path('api/user/payments/', include('payment.urls', namespace='payment')),
+    path('api/user/orders/', include('orders.urls', namespace='orders')),
+    path('api/user/payments/', include('payment.urls', namespace='payment')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(
         'resend-email/', ResendEmailVerificationView.as_view(), name='rest_resend_email'
