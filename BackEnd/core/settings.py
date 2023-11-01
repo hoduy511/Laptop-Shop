@@ -58,8 +58,8 @@ INSTALLED_APPS = [
     # apps
     'users',
     'products',
-    # 'orders',
-    # 'payment',
+    'orders',
+    'payment',
 ]
 
 # SIMPLE_JWT = {
@@ -194,8 +194,8 @@ SITE_ID = 1
 
 REST_AUTH = {
     'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'phonenumber-auth',
-    'JWT_AUTH_REFRESH_COOKIE': 'phonenumber-refresh-token',
+    'JWT_AUTH_COOKIE': 'access-token',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh-token',
     'RETURN_REFRESH_TOKEN': True,
     'JWT_AUTH_HTTPONLY': False,
     'JWT_AUTH_SECURE': True,
@@ -259,9 +259,9 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '../', 'staticfiles')
 
 
-# # Stripe
-# STRIPE_PUBLISHABLE_KEY = 'pk_test_51O3awvJNouJ73w7IpFe8vecoSfJBwPLrCYsu3wUeKiGSiknORZVuFTBRradiUazNlLUKYeCYuF06trCZLn24swPl004JzF1eNi'
-# STRIPE_SECRET_KEY = 'sk_test_51O3awvJNouJ73w7IeZ4qBn5oLAtmCv9URobCOYHpUGE4s1t0I2VVIUfaJP5fo2ozWAlF15imRs2Y6YDisBob1o4r00CDbzU9vC'
+# Stripe
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51O3awvJNouJ73w7IpFe8vecoSfJBwPLrCYsu3wUeKiGSiknORZVuFTBRradiUazNlLUKYeCYuF06trCZLn24swPl004JzF1eNi'
+STRIPE_SECRET_KEY = 'sk_test_51O3awvJNouJ73w7IeZ4qBn5oLAtmCv9URobCOYHpUGE4s1t0I2VVIUfaJP5fo2ozWAlF15imRs2Y6YDisBob1o4r00CDbzU9vC'
 # STRIPE_WEBHOOK_SECRET = 'STRIPE_WEBHOOK_SECRET'
 
 # BACKEND_DOMAIN = 'BACKEND_DOMAIN'
