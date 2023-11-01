@@ -10,13 +10,10 @@ from rest_framework.viewsets import ModelViewSet
 from orders.models import Order
 from orders.permissions import IsOrderByBuyerOrAdmin
 from payment.models import Payment
-from payment.permissions import (
-    DoesOrderHaveAddress,
-    IsOrderPendingWhenCheckout,
-    IsPaymentByUser,
-    IsPaymentForOrderNotCompleted,
-    IsPaymentPending,
-)
+from payment.permissions import (DoesOrderHaveAddress,
+                                 IsOrderPendingWhenCheckout, IsPaymentByUser,
+                                 IsPaymentForOrderNotCompleted,
+                                 IsPaymentPending)
 from payment.serializers import CheckoutSerializer, PaymentSerializer
 from payment.tasks import send_payment_success_email_task
 
@@ -120,7 +117,8 @@ class StripeWebhookAPIView(APIView):
         event = None
 
         try:
-            event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, endpoint_secret)
         except ValueError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except stripe.error.SignatureVerificationError:

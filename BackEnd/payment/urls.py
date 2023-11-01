@@ -1,12 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from payment.views import (
-    CheckoutAPIView,
-    PaymentViewSet,
-    StripeCheckoutSessionCreateAPIView,
-    StripeWebhookAPIView,
-)
+from payment.views import (CheckoutAPIView, PaymentViewSet,
+                           StripeCheckoutSessionCreateAPIView,
+                           StripeWebhookAPIView)
 
 app_name = "payment"
 

@@ -31,7 +31,8 @@ class IsPaymentPending(BasePermission):
 
 
 class IsPaymentForOrderNotCompleted(BasePermission):
-    message = _("Creating a checkout session for completed payment is not allowed.")
+    message = _(
+        "Creating a checkout session for completed payment is not allowed.")
 
     def has_permission(self, request, view):
         if request.user.is_authenticated:

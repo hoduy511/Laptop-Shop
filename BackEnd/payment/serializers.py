@@ -3,7 +3,8 @@ from rest_framework import serializers
 from orders.models import Order
 from payment.models import Payment
 from users.models import Address
-from users.serializers import BillingAddressSerializer, ShippingAddressSerializer
+from users.serializers import (BillingAddressSerializer,
+                               ShippingAddressSerializer)
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -11,7 +12,8 @@ class PaymentSerializer(serializers.ModelSerializer):
     Serializer to CRUD payments for an order.
     """
 
-    buyer = serializers.CharField(source="order.buyer.get_full_name", read_only=True)
+    buyer = serializers.CharField(
+        source="order.buyer.get_full_name", read_only=True)
 
     class Meta:
         model = Payment
@@ -32,7 +34,8 @@ class PaymentOptionSerializer(serializers.ModelSerializer):
     Payment serializer for checkout. Order will be automatically set during checkout.
     """
 
-    buyer = serializers.CharField(source="order.buyer.get_full_name", read_only=True)
+    buyer = serializers.CharField(
+        source="order.buyer.get_full_name", read_only=True)
 
     class Meta:
         model = Payment

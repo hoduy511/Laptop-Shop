@@ -2,17 +2,11 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
 from orders.models import Order, OrderItem
-from orders.permissions import (
-    IsOrderByBuyerOrAdmin,
-    IsOrderItemByBuyerOrAdmin,
-    IsOrderItemPending,
-    IsOrderPending,
-)
-from orders.serializers import (
-    OrderItemSerializer,
-    OrderReadSerializer,
-    OrderWriteSerializer,
-)
+from orders.permissions import (IsOrderByBuyerOrAdmin,
+                                IsOrderItemByBuyerOrAdmin, IsOrderItemPending,
+                                IsOrderPending)
+from orders.serializers import (OrderItemSerializer, OrderReadSerializer,
+                                OrderWriteSerializer)
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):

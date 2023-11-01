@@ -15,8 +15,10 @@ class Order(models.Model):
 
     STATUS_CHOICES = ((PENDING, _("pending")), (COMPLETED, _("completed")))
 
-    buyer = models.ForeignKey(User, related_name="orders", on_delete=models.CASCADE)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=PENDING)
+    buyer = models.ForeignKey(
+        User, related_name="orders", on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=1, choices=STATUS_CHOICES, default=PENDING)
     shipping_address = models.ForeignKey(
         Address,
         related_name="shipping_orders",
