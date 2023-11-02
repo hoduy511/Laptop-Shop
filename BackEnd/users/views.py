@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from rest_framework import permissions, status
+from rest_framework import permissions, status, viewsets
 from rest_framework.generics import (GenericAPIView, RetrieveAPIView,
                                      RetrieveUpdateAPIView)
 from rest_framework.response import Response
@@ -151,9 +151,9 @@ class UserAPIView(RetrieveAPIView):
         return self.request.user
 
 
-class AddressViewSet(ReadOnlyModelViewSet):
+class AddressViewSet(viewsets.ModelViewSet):
     """
-    List and Retrieve user addresses
+    CRUD user addresses
     """
 
     queryset = Address.objects.all()
