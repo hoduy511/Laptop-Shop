@@ -197,7 +197,7 @@ class AddressReadOnlySerializer(CountryFieldMixin, serializers.ModelSerializer):
     Serializer class to seralize Address model
     """
 
-    user = serializers.CharField(source="user.get_full_name", read_only=True)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Address
