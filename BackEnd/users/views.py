@@ -16,10 +16,10 @@ from rest_framework.response import Response
 
 from users.models import Address, PhoneNumber, Profile
 from users.permissions import IsUserAddressOwner, IsUserProfileOwner
-from users.serializers import (AddressSerializer,
-                               PhoneNumberSerializer, ProfileSerializer,
-                               UserLoginSerializer, UserRegistrationSerializer,
-                               UserSerializer, VerifyPhoneNumberSerialzier)
+from users.serializers import (AddressSerializer, PhoneNumberSerializer,
+                               ProfileSerializer, UserLoginSerializer,
+                               UserRegistrationSerializer, UserSerializer,
+                               VerifyPhoneNumberSerialzier)
 
 User = get_user_model()
 
