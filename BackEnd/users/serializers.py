@@ -192,7 +192,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         )
 
 
-class AddressReadOnlySerializer(CountryFieldMixin, serializers.ModelSerializer):
+class AddressSerializer(CountryFieldMixin, serializers.ModelSerializer):
     """
     Serializer class to seralize Address model
     """
@@ -211,7 +211,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     profile = ProfileSerializer(read_only=True)
     phone_number = PhoneNumberField(source="phone", read_only=True)
-    addresses = AddressReadOnlySerializer(read_only=True, many=True)
+    addresses = AddressSerializer(read_only=True, many=True)
 
     class Meta:
         model = User
