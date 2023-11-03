@@ -13,11 +13,10 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.generics import (GenericAPIView, RetrieveAPIView,
                                      RetrieveUpdateAPIView)
 from rest_framework.response import Response
-from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from users.models import Address, PhoneNumber, Profile
 from users.permissions import IsUserAddressOwner, IsUserProfileOwner
-from users.serializers import (AddressReadOnlySerializer,
+from users.serializers import (AddressSerializer,
                                PhoneNumberSerializer, ProfileSerializer,
                                UserLoginSerializer, UserRegistrationSerializer,
                                UserSerializer, VerifyPhoneNumberSerialzier)
@@ -157,7 +156,7 @@ class AddressViewSet(viewsets.ModelViewSet):
     """
 
     queryset = Address.objects.all()
-    serializer_class = AddressReadOnlySerializer
+    serializer_class = AddressSerializer
     permission_classes = (IsUserAddressOwner,)
 
     def get_queryset(self):
