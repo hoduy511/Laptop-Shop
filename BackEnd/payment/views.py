@@ -69,12 +69,16 @@ class StripeCheckoutSessionCreateAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         order = get_object_or_404(Order, id=self.kwargs.get("order_id"))
-
+        
         order_items = []
 
         for order_item in order.order_items.all():
             product = order_item.product
             quantity = order_item.quantity
+
+            cover_image = product.images.filter(name="COVER-IMAGE")
+            
+            image_urls = [f"{settings.BACKEND_DOMAIN}{c_image.image.url}" for c_image in cover_image]
 
             data = {
                 "price_data": {
@@ -82,8 +86,8 @@ class StripeCheckoutSessionCreateAPIView(APIView):
                     "unit_amount_decimal": product.price,
                     "product_data": {
                         "name": product.name,
-                        "description": product.desc,
-                        "images": [f"{settings.BACKEND_DOMAIN}{product.image.url}"],
+                        "description": product.desc if product.desc else "No description available",
+                        "images": image_urls,
                     },
                 },
                 "quantity": quantity,
