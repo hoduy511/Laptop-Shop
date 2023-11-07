@@ -69,7 +69,7 @@ class StripeCheckoutSessionCreateAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         order = get_object_or_404(Order, id=self.kwargs.get("order_id"))
-        
+
         order_items = []
 
         for order_item in order.order_items.all():
@@ -77,8 +77,9 @@ class StripeCheckoutSessionCreateAPIView(APIView):
             quantity = order_item.quantity
 
             cover_image = product.images.filter(name="COVER-IMAGE")
-            
-            image_urls = [f"{settings.BACKEND_DOMAIN}{c_image.image.url}" for c_image in cover_image]
+
+            image_urls = [
+                f"{settings.BACKEND_DOMAIN}{c_image.image.url}" for c_image in cover_image]
 
             data = {
                 "price_data": {
