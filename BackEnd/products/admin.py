@@ -7,11 +7,14 @@ from products.models import Product, ProductCategory, ProductImage
 class ProductResource(ExportActionMixin, admin.ModelAdmin):
     list_display = ('name',)
 
+
 class ProductCategoryResource(ExportActionMixin, admin.ModelAdmin):
     list_display = ('name',)
-    
+
+
 class ProductImageResource(ExportActionMixin, admin.ModelAdmin):
     list_display = ('name',)
+
 
 admin.site.register(ProductCategory, ProductCategoryResource)
 admin.site.register(Product, ProductResource)
