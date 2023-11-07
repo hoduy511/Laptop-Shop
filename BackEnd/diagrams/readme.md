@@ -1,0 +1,5 @@
+- activity diagrams
+- class diagrams
+- sequence diagrams
+- state diagrams
+- usecase diagrams
