@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config
 
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -278,7 +278,8 @@ PAYMENT_CANCEL_URL = 'http://localhost:3000/checkout/failed/'
 
 
 CELERY_RESULT_BACKEND = "django-db"
-CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='redis://localhost:6379')
+CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL',
+                           default='redis://localhost:6379')
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 
