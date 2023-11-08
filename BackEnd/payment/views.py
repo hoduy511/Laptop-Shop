@@ -145,12 +145,12 @@ class StripeWebhookAPIView(APIView):
             order.save()
 
             send_payment_success_email_task.delay(customer_email)
-            
+
             # Decrease product quantity
             for order_item in order.order_items.all():
                 product = order_item.product
                 quantity = order_item.quantity
-                
+
                 # Calculate the new product quantity
                 new_quantity = product.quantity - quantity
 
@@ -158,8 +158,7 @@ class StripeWebhookAPIView(APIView):
                     new_quantity = 0  # Ensure the quantity doesn't go negative
 
                 product.quantity = new_quantity
-                product.save()    
-
+                product.save()
 
         # Can handle other events here.
 
