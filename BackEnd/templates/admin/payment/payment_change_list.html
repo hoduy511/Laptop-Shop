@@ -42,6 +42,7 @@
 
 {% block content %}
 <canvas id="myChartStatus" width="400" height="100"></canvas>
+<canvas id="myChartTotalAmount" width="400" height="100"></canvas>
   <div id="content-main">
     {% block object-tools %}
         <ul class="object-tools">
@@ -93,23 +94,35 @@
         const chartDataPending = {{ chart_data_pending | safe }};
         const chartDataCompleted = {{ chart_data_completed | safe }};
         const chartDataFailed = {{ chart_data_failed | safe }};
+        var totalPending = 0;
+        var totalCompeleted = 0;
+        var totalFailed = 0;
 
         // Parse the dates to JS
-        chartDataPending.forEach((d) => { d.x = new Date(d.date); });
-        chartDataCompleted.forEach((d) => { d.x = new Date(d.date); });
-        chartDataFailed.forEach((d) => { d.x = new Date(d.date); });
+        chartDataPending.forEach((d) => {
+                                          d.x = new Date(d.date);
+                                          totalPending += parseInt(d.y)
+                                        });
+        chartDataCompleted.forEach((d) => {
+                                          d.x = new Date(d.date);
+                                          totalCompeleted += parseInt(d.y)
+                                          });
+        chartDataFailed.forEach((d) => {
+                                        d.x = new Date(d.date);
+                                        totalFailed += parseInt(d.y)
+                                      });
 
         // Combine the datasets
         var datasets = [{
-            label: 'Pending',
+            label: `Total Pending: ${totalPending} | Pending`,
             data: chartDataPending,
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         }, {
-            label: 'Completed',
+            label: `Total Completed: ${totalCompeleted} | Compeleted`,
             data: chartDataCompleted,
             backgroundColor: 'rgba(75, 192, 192, 0.5)',
         }, {
-            label: 'Failed',
+            label: `Total Failed: ${totalFailed} | Failed`,
             data: chartDataFailed,
             backgroundColor: 'rgba(255, 205, 86, 0.5)',
         }];
@@ -141,6 +154,74 @@
                 }
             }
         });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctxTotalAmount = document.getElementById('myChartTotalAmount').getContext('2d');
+      const totalAmountDataPending = {{ chart_data_total_amount_pending | safe }};
+      const totalAmountDataCompleted = {{ chart_data_total_amount_completed | safe }};
+      const totalAmountDataFailed = {{ chart_data_total_amount_failed | safe }};
+      var totalAmountPending = 0
+      var totalAmountCompleted = 0
+      var totalAmountFailed = 0
+
+      // Parse the dates to JS
+      totalAmountDataPending.forEach((d) => { 
+                                              d.x = new Date(d.date);
+                                              totalAmountPending += parseFloat(d.y)
+                                            });
+      totalAmountDataCompleted.forEach((d) => { 
+                                                d.x = new Date(d.date);
+                                                totalAmountCompleted += parseFloat(d.y)
+                                              });
+      totalAmountDataFailed.forEach((d) => { 
+                                              d.x = new Date(d.date);
+                                              totalAmountFailed += parseFloat(d.y)
+                                            });
+
+      // Combine the datasets
+      var totalAmountDatasets = [{
+        label: `Total Amount Pending: ${totalAmountPending} | Amount`,
+        data: totalAmountDataPending,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      }, {
+        label: `Total Amount Completed: ${totalAmountCompleted} | Amount`,
+        data: totalAmountDataCompleted,
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+      }, {
+        label: `Total Amount Failed: ${totalAmountFailed} | Amount`,
+        data: totalAmountDataFailed,
+        backgroundColor: 'rgba(255, 205, 86, 0.5)',
+      }];
+
+      // Add your javascript chart presentation below this comment
+      var myChartTotalAmount = new Chart(ctxTotalAmount, {
+        type: 'bar',
+        data: {
+            datasets: totalAmountDatasets,
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        round: 'day',
+                        displayFormats: {
+                            day: 'MMM D',
+                        },
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                }],
+            }
+        },
+      });
     });
   </script>
 

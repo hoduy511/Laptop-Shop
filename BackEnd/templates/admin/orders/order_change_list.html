@@ -92,17 +92,25 @@
         const ctx = document.getElementById('myChartStatus').getContext('2d');
         const chartDataPending = {{ chart_data_pending | safe }};
         const chartDataCompleted = {{ chart_data_completed | safe }};
+        var totalPending = 0;
+        var totalCompeleted = 0;
 
         // Parse the dates to JS
-        chartDataPending.forEach((d) => { d.x = new Date(d.date); });
-        chartDataCompleted.forEach((d) => { d.x = new Date(d.date); });
+        chartDataPending.forEach((d) => { 
+                                          d.x = new Date(d.date);
+                                          totalPending += parseInt(d.y)
+                                        });
+        chartDataCompleted.forEach((d) => { 
+                                            d.x = new Date(d.date);
+                                            totalCompeleted += parseInt(d.y) 
+                                          });
         // Combine the datasets
         var datasets = [{
-            label: 'Pending',
+            label: `Total Pending: ${totalPending} | Pending`,
             data: chartDataPending,
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         }, {
-            label: 'Completed',
+            label: `Total Completed: ${totalCompeleted} | Compeleted`,
             data: chartDataCompleted,
             backgroundColor: 'rgba(75, 192, 192, 0.5)',
         }];
