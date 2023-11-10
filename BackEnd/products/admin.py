@@ -35,8 +35,10 @@ class ProductResource(ExportActionMixin, admin.ModelAdmin):
         )
 
         # Serialize and attach the chart data to the template context
-        as_json_created = json.dumps(list(chart_data_created), cls=DjangoJSONEncoder)
-        as_json_updated = json.dumps(list(chart_data_updated), cls=DjangoJSONEncoder)
+        as_json_created = json.dumps(
+            list(chart_data_created), cls=DjangoJSONEncoder)
+        as_json_updated = json.dumps(
+            list(chart_data_updated), cls=DjangoJSONEncoder)
 
         extra_context = extra_context or {
             "chart_data_created": as_json_created,
@@ -44,13 +46,13 @@ class ProductResource(ExportActionMixin, admin.ModelAdmin):
         }
 
         return super().changelist_view(request, extra_context=extra_context)
-    
+
     change_list_template = 'admin/products/product_change_list.html'
 
 
 class ProductCategoryResource(ExportActionMixin, admin.ModelAdmin):
     list_display = ('name',)
-    
+
     # change_list.html
     def changelist_view(self, request, extra_context=None):
         # Aggregate data for created_at
@@ -74,8 +76,10 @@ class ProductCategoryResource(ExportActionMixin, admin.ModelAdmin):
         )
 
         # Serialize and attach the chart data to the template context
-        as_json_created = json.dumps(list(chart_data_created), cls=DjangoJSONEncoder)
-        as_json_updated = json.dumps(list(chart_data_updated), cls=DjangoJSONEncoder)
+        as_json_created = json.dumps(
+            list(chart_data_created), cls=DjangoJSONEncoder)
+        as_json_updated = json.dumps(
+            list(chart_data_updated), cls=DjangoJSONEncoder)
 
         extra_context = extra_context or {
             "chart_data_created": as_json_created,
@@ -83,7 +87,7 @@ class ProductCategoryResource(ExportActionMixin, admin.ModelAdmin):
         }
 
         return super().changelist_view(request, extra_context=extra_context)
-    
+
     change_list_template = 'admin/products/product_category_change_list.html'
 
 
@@ -113,8 +117,10 @@ class ProductImageResource(ExportActionMixin, admin.ModelAdmin):
         )
 
         # Serialize and attach the chart data to the template context
-        as_json_created = json.dumps(list(chart_data_created), cls=DjangoJSONEncoder)
-        as_json_updated = json.dumps(list(chart_data_updated), cls=DjangoJSONEncoder)
+        as_json_created = json.dumps(
+            list(chart_data_created), cls=DjangoJSONEncoder)
+        as_json_updated = json.dumps(
+            list(chart_data_updated), cls=DjangoJSONEncoder)
 
         extra_context = extra_context or {
             "chart_data_created": as_json_created,

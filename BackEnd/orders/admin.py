@@ -33,17 +33,19 @@ class OrderResource(ExportActionMixin, admin.ModelAdmin):
             .annotate(y=Count("id"))
             .order_by("-date")
         )
-        
-        as_json_pending = json.dumps(list(chart_data_pending), cls=DjangoJSONEncoder)
-        as_json_completed = json.dumps(list(chart_data_completed), cls=DjangoJSONEncoder)
+
+        as_json_pending = json.dumps(
+            list(chart_data_pending), cls=DjangoJSONEncoder)
+        as_json_completed = json.dumps(
+            list(chart_data_completed), cls=DjangoJSONEncoder)
         extra_context = extra_context or {
             "chart_data_pending": as_json_pending,
             "chart_data_completed": as_json_completed,
         }
-        
+
         # Call the superclass changelist_view to render the page
         return super().changelist_view(request, extra_context=extra_context)
-    
+
     change_list_template = 'admin/orders/order_change_list.html'
 
 

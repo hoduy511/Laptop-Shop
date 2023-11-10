@@ -43,9 +43,12 @@ class PaymentResource(ExportActionMixin, admin.ModelAdmin):
         )
 
         # Serialize and attach the chart data to the template context
-        as_json_pending = json.dumps(list(chart_data_pending), cls=DjangoJSONEncoder)
-        as_json_completed = json.dumps(list(chart_data_completed), cls=DjangoJSONEncoder)
-        as_json_failed = json.dumps(list(chart_data_failed), cls=DjangoJSONEncoder)
+        as_json_pending = json.dumps(
+            list(chart_data_pending), cls=DjangoJSONEncoder)
+        as_json_completed = json.dumps(
+            list(chart_data_completed), cls=DjangoJSONEncoder)
+        as_json_failed = json.dumps(
+            list(chart_data_failed), cls=DjangoJSONEncoder)
 
         extra_context = extra_context or {
             "chart_data_pending": as_json_pending,
