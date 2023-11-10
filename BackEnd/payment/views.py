@@ -106,7 +106,11 @@ class StripeCheckoutSessionCreateAPIView(APIView):
         )
 
         return Response(
-            {"sessionId": checkout_session["id"]}, status=status.HTTP_201_CREATED
+            {
+                "sessionId": checkout_session["id"],
+                "paymentUrl": checkout_session["url"]
+            },
+            status=status.HTTP_201_CREATED
         )
 
 
