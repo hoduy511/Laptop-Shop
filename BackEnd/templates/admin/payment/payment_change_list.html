@@ -41,7 +41,7 @@
 {% block coltype %}{% endblock %}
 
 {% block content %}
-<canvas id="myChart" width="400" height="100"></canvas>
+<canvas id="myChartStatus" width="400" height="100"></canvas>
   <div id="content-main">
     {% block object-tools %}
         <ul class="object-tools">
@@ -89,45 +89,60 @@
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const chartData = {{ chart_data | safe }};
+        const ctx = document.getElementById('myChartStatus').getContext('2d');
+        const chartDataPending = {{ chart_data_pending | safe }};
+        const chartDataCompleted = {{ chart_data_completed | safe }};
+        const chartDataFailed = {{ chart_data_failed | safe }};
 
         // Parse the dates to JS
-        chartData.forEach((d) => {d.x = new Date(d.date);});
+        chartDataPending.forEach((d) => { d.x = new Date(d.date); });
+        chartDataCompleted.forEach((d) => { d.x = new Date(d.date); });
+        chartDataFailed.forEach((d) => { d.x = new Date(d.date); });
+
+        // Combine the datasets
+        var datasets = [{
+            label: 'Pending',
+            data: chartDataPending,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        }, {
+            label: 'Completed',
+            data: chartDataCompleted,
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        }, {
+            label: 'Failed',
+            data: chartDataFailed,
+            backgroundColor: 'rgba(255, 205, 86, 0.5)',
+        }];
 
         // Add your javascript chart presentation below this comment
         var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              datasets: [{
-                  label: 'number of products',
-                  data: chartData,
-                  backgroundColor: 'rgba(61,61,131,0.5)',
-              }]
-          },
-          options: {
-              responsive: true,
-              scales: {
-                  xAxes: [{
-                      type: 'time',
-                      time: {
-                          unit: 'day',
-                          round: 'day',
-                          displayFormats: {
-                              day: 'MMM D',
-                          },
-                      },
-                  }, ],
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero: true,
-                      },
-                  }, ],
-              }
-          }
-      });
-
+            type: 'bar',
+            data: {
+                datasets: datasets,
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            round: 'day',
+                            displayFormats: {
+                                day: 'MMM D',
+                            },
+                        },
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    }],
+                }
+            }
+        });
     });
   </script>
+
 {% endblock %}
 
