@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.db.models.functions import TruncDay
 from import_export.admin import ExportActionMixin
 
-from products.models import Product, ProductCategory, ProductImage
+from products.models import Product, ProductCategory, ProductImage, Review
 
 
 class ProductResource(ExportActionMixin, admin.ModelAdmin):
@@ -134,3 +134,4 @@ class ProductImageResource(ExportActionMixin, admin.ModelAdmin):
 admin.site.register(ProductCategory, ProductCategoryResource)
 admin.site.register(Product, ProductResource)
 admin.site.register(ProductImage, ProductImageResource)
+admin.site.register(Review)
