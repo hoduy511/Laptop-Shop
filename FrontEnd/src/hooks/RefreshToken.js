@@ -1,23 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAccessToken, selectAccessExpiration, selectRefreshToken, loginSuccess, } from '../store/reducers/userSlice';
+import { selectAccessToken, selectAccessExpiration, selectRefreshToken, authentication, logout } from '../store/reducers/userSlice';
 import axios from '../services/Customize-axios';
 
 function RefreshToken() {
   const dispatch = useDispatch();
-  const accessToken = useSelector(selectAccessToken);
-  const accessExpiration = useSelector(selectAccessExpiration);
+  const [refreshInterval, setRefreshInterval] = useState(null);
+  let accessToken = useSelector(selectAccessToken);
+  let accessExpiration = useSelector(selectAccessExpiration);
   const refreshToken = useSelector(selectRefreshToken);
-  const isLoggedIn = useSelector(state=>state.user.isLoggedIn);
-
+  let isLoggedIn = useSelector(state=>state.user.isLoggedIn);
 
 
   const isAccessTokenExpired = (accessExpiration) => {
-    const currentTimestamp = new Date(); // Lấy thời gian hiện tại dưới dạng ISO 8601
-    const expirationDate = Date(accessExpiration);
-    console.log('currentTime:',currentTimestamp)
-    console.log('expire:',expirationDate)
-    return expirationDate < currentTimestamp;
+    let currentTimestamp = new Date(); // Lấy thời gian hiện tại dưới dạng ISO 8601
+    let expireTime = new Date(accessExpiration);
+    return (expireTime < currentTimestamp);
   }
 
   const refreshAccessTokenIfNeeded = async () => {
@@ -33,27 +31,47 @@ function RefreshToken() {
           const newAccessToken = response.access;
           const newAccessExpiration = response.access_expiration;
 
-          dispatch(loginSuccess({ access: newAccessToken, access_expiration: newAccessExpiration }));
+          dispatch(authentication({ 
+            access: newAccessToken, 
+            access_expiration: newAccessExpiration
+          }));
 
-          setTimeout(refreshAccessTokenIfNeeded, 0.2 * 60 * 1000 + 50 * 1000);
         } else {
           // Xử lý lỗi khi không nhận được access token mới
+          logout();
         }
       } catch (error) {
         // Xử lý lỗi khi làm mới access token không thành công
         console.error(error);
-        setTimeout(refreshAccessTokenIfNeeded, 4 * 60 * 1000 + 50 * 1000);
       }
     } else {
-      setTimeout(refreshAccessTokenIfNeeded, 4 * 60 * 1000 + 50 * 1000);
     }
   }
 
   useEffect(() => {
-    if (isLoggedIn && accessToken && isAccessTokenExpired(accessExpiration) ) {
-      refreshAccessTokenIfNeeded();
+    if (isLoggedIn && accessToken) {
+      if (!accessExpiration){
+        setTimeout(refreshAccessTokenIfNeeded,1 * 1000);
+        console.log('Chưa có accExp');
+      } else if (accessExpiration){
+        let isRefreshing = false;
+        let remainingTime = new Date(accessExpiration) - new Date();
+        const intervalId = setInterval(() => {
+          if (isAccessTokenExpired(accessExpiration) === true && !(remainingTime < 0) && !isRefreshing) {
+            if(remainingTime > 0 && !isRefreshing){
+              refreshAccessTokenIfNeeded();
+              isRefreshing = true;
+              console.log('Đã được thực thi');
+            }
+            console.log('refresh điều kiện', remainingTime);
+          } else{
+            clearInterval(intervalId);
+          }
+        }, remainingTime);
+        setRefreshInterval(intervalId);
+      }
     }
-  }, [isLoggedIn, accessToken, accessExpiration]);
+  }, [accessToken]);
 
   return null;
 }

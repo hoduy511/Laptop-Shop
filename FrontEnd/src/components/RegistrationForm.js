@@ -39,9 +39,6 @@ const Register = () => {
             <section className="vh-100 login-container">
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-9 col-lg-6 col-xl-5">
-                            <img src={image} class="img-fluid" alt="Sample image"/>
-                        </div>
                         <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                             <form>
                                 <div className="divider d-flex align-items-center my-4 title">
@@ -102,7 +99,7 @@ const Register = () => {
                                     <button type="button" disabled={(email || phoneNumber) && password && password2 && firstName && lastName ? false:true}
                                     className={email && phoneNumber && password && password2 && firstName && lastName ? "active btn btn-primary btn-lg login-btn":"btn btn-primary btn-lg login-btn"}
                                     onClick={() => handleRegister()}>Register</button>
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <Link to="/Laptop-Shop/login"
+                                    <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <Link to="/login"
                                         className="link-danger">Login</Link></p>
                                 </div>
                             </form>

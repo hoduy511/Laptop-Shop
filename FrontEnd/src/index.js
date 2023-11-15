@@ -7,21 +7,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import { BrowserRouter } from 'react-router-dom';
-import 'react-phone-input-2/lib/style.css'
+import 'react-phone-input-2/lib/style.css';
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import 'swiper/css';
 
 // Redux
-import store from './store/store';
+import {store} from './store/store';
 import { Provider } from 'react-redux';
-
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -40,7 +40,7 @@ export default function VerifyEmailView() {
                 <br />
                 <button
                   className="btn btn-lg btn-primary my-2"
-                  onClick={() => navigate("/Laptop-Shop/login")}
+                  onClick={() => navigate("/login")}
                 >
                   Login
                 </button>

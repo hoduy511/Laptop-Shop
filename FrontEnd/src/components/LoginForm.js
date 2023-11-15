@@ -1,16 +1,18 @@
 import { useEffect, useState, useRef } from 'react';
 import { loginApi } from '../services/UserService';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess } from '../store/reducers/userSlice';
+import { authentication, loginSuccess } from '../store/reducers/userSlice';
 
-import sample from '../draw2.webp'
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+
+import {toast} from 'react-toastify';
 
 const Login = (props) => {
 
     let navigate = useNavigate();    
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/Laptop-Shop/";
+    const from = location.state?.from?.pathname || "/";
+    const [loading, setLoading] = useState(false);
     
     const userRef = useRef();
     const errRef = useRef();
@@ -22,28 +24,32 @@ const Login = (props) => {
     const [errMsg, setErrMsg] = useState('');
 
     const handleLogin = async () =>{
+        setLoading(true);
         try {
             let response = await loginApi(user, password);
                 const userInfo = response;
-                console.log('check user info', userInfo);
                 dispatch(loginSuccess(userInfo));
+                dispatch(authentication(userInfo));
                 setUser('');
                 setPassword('');
                 navigate(from, { replace: true });
+                toast.success('Đăng nhập thành công!');
+
 
         } catch (err) {
             if (!err?.response) {
-                setErrMsg('No Server Response');
-                console.error(err);
+                toast.error('No Server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
+                toast.warning('Missing Username or Password!');
             } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
+                toast.warning('Wrong Username or Password!');
             } else {
-                setErrMsg('Login Failed');
+                toast.warning('Login Failed!');
             }
             errRef.current.focus();
-    }}
+        }
+        setLoading(false);
+    }
 
     useEffect(() => {
         userRef.current.focus();
@@ -59,9 +65,6 @@ const Login = (props) => {
             <section className="vh-100 login-container">
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-md-9 col-lg-6 col-xl-5">
-                        <img src={sample} className="img-fluid" alt="Sample"/>
-                    </div>
                     <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form>
 
@@ -87,19 +90,15 @@ const Login = (props) => {
                     
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="form-check mb-0">
-                            <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                            <label className="form-check-label" for="form2Example3">
-                                Remember me
-                            </label>
                             </div>
-                            <a to="#!" className="text-body">Forgot password?</a>
+                            <Link as={Link} to="/login/identify" className="text-body link-danger fw-bold text-decoration-none">Forgot password?</Link>
                         </div>
 
                         <div className="text-center text-lg-start mt-4 pt-2">
                             <button type="button" disabled={user && password ? false:true}
                             className={user && password ? "active btn btn-primary btn-lg login-btn":"btn btn-primary btn-lg login-btn"}
-                            onClick={(user, password) => handleLogin()}>Login</button>
-                            <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <Link to="/Laptop-Shop/register/"
+                            onClick={(user, password) => handleLogin()}>{loading ? <i class="fa-solid fa-spinner fa-spin"></i> : 'Login'}</button>
+                            <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <Link to="/register/"
                                 className="link-danger">Register</Link></p>
                         </div>
 

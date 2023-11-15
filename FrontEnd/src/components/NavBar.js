@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Nav, Navbar, Container, Form, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../store/reducers/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import logo from '../logo.webp'
+import CartIcon from './CartQuantity';
+import SearchBar from './SearchBar';
 
 
 const NavBar = ( props) => {
@@ -10,55 +14,63 @@ const NavBar = ( props) => {
     const isLoggedIn = useSelector(state => state.user.isLoggedIn);
     const user = useSelector(state=>state.user.user);
 
-    let navigate = useNavigate();
 
+    const [collapseOpen, setCollapseOpen] = useState(false);
+    const [collapseUserOpen, setCollapseUserOpen] = useState(false);
+
+    let navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+      if(!collapseUserOpen){
+        setCollapseOpen(false);
+      }
+      }, [location]);
 
     const handleLogout  = () =>{
         dispatch(logout());
+    }
+    
+    const handleMenuClick = () =>{
+      setCollapseUserOpen(false);
+      setCollapseOpen(false);
     }
 
     const renderAuthButton = () =>{
         if (isLoggedIn) {
             return (
-              <Nav.Link as={Link} onClick={() =>handleLogout()} to={'/Laptop-Shop/'}>Đăng xuất</Nav.Link>
+              <Nav.Link as={Link} onClick={() =>handleLogout()} to={'/'}>Đăng xuất</Nav.Link>
             );
           } else {
             return (
-              <Nav.Link as={Link} to={'/Laptop-Shop/register'}>Đăng ký</Nav.Link>
+              <Nav.Link as={Link} onClick={() => handleMenuClick()} to={'/register'}>Đăng ký</Nav.Link>
             );
           }
     }
 
+
     
     return (<>
-        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary navbar-all" expanded={collapseOpen}>
             <Container className='navbar-container'>
-                <Navbar.Brand as={Link} to="/Laptop-Shop/">React-Bootstrap</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
+                <Navbar.Brand as={Link} to="/"><img className='logo' src={logo} alt='logo'/>Laptop Shop</Navbar.Brand>
+                <SearchBar/>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setCollapseOpen(!collapseOpen)} />
+                <Navbar.Collapse id="responsive-navbar-nav" >
                 <Nav className="me-auto">
-                    <Nav.Link as={Link} to="/Laptop-Shop/shop">Shop</Nav.Link>
-                    <Nav.Link as={Link} to="/Laptop-Shop/abouts">Abouts</Nav.Link>
+                    <Nav.Link as={Link} to="/shop">Danh Mục Sản Phẩm</Nav.Link>
+                    <Nav.Link as={Link} to="/abouts">Thông Tin</Nav.Link>
                 </Nav>
-                <Nav className='px-5'>
-                    <Form className="d-flex" style={{width: '400px'}}>
-                        <Form.Control
-                        type="search"
-                        placeholder="Search"
-                        className="me-2 w-100"
-                        aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
-                </Nav>
+                
                 <Nav>
-                    <Nav.Link to="/Laptop-Shop/cart">
-                    <span><i class="fa-solid fa-cart-shopping"/></span>
+                    <Nav.Link as={Link} className='cart-container' to="/cart">
+                      <span><i className="fa-solid fa-cart-shopping cart-fa"/><CartIcon/>{collapseOpen ? 'Cart': ''}</span>
                     </Nav.Link >
-                    <Nav.Link as={Link} to={!isLoggedIn ? `/Laptop-Shop/login`:(isLoggedIn ? `/Laptop-Shop/${user.email}` : `/Laptop-Shop/login`)} className='menu-container'>
-                            <span className='menu-trigger'><i class="fa-solid fa-user"/></span>
+                    <Nav.Link className='menu-container'>
+                            <span className='menu-trigger'><i class="fa-solid fa-user" onClick={() => setCollapseUserOpen(!collapseUserOpen)}/>{collapseOpen ? 'User': ''}</span>
                             <div class="hover-menu">
-                                <Nav.Link as={Link} to={!isLoggedIn ? `/Laptop-Shop/login`:(isLoggedIn ? `/Laptop-Shop/${user.email}` : `/Laptop-Shop/login`)}>{!isLoggedIn ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
+                            <Nav.Link as={Link} onClick={() => handleMenuClick()} to={!isLoggedIn ? `/login`:(isLoggedIn ? `/user/${user.user ? user.user.email : 'null'}` : `/login`)}>{!isLoggedIn ? 'Đăng nhập':'Tài khoản'}</Nav.Link>
+                            {isLoggedIn ? <Nav.Link as={Link} to={'/user/payhistory'}>Đơn mua</Nav.Link> : null}
                                 {renderAuthButton()}
                             </div>
                     </Nav.Link>

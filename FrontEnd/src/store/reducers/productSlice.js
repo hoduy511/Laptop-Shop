@@ -1,5 +1,5 @@
-import { fetchProducts, fetchCategories, fetchIdProduct } from '../../services/ProductService';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchProducts, fetchCategories, fetchIdProduct } from '../../services/ProductService';
 
 const initialState = {
   products: [],
@@ -12,7 +12,6 @@ const initialState = {
 export const fetchProductsFromApi = createAsyncThunk('products/fetchProductsFromApi', async () => {
   try {
     const response = await fetchProducts();
-    console.log('>>check product from reducer:',response)
     return response;
   } catch (error) {
     throw error;
@@ -22,7 +21,6 @@ export const fetchProductsFromApi = createAsyncThunk('products/fetchProductsFrom
 export const fetchCategoriesFromApi = createAsyncThunk('categories/fetchCategoriesFromApi', async () => {
   try {
     const response = await fetchCategories();
-    console.log('>>check categories from reducer:',response)
     return response;
   } catch (error) {
     throw error;
@@ -32,8 +30,6 @@ export const fetchCategoriesFromApi = createAsyncThunk('categories/fetchCategori
 export const fetchIdProductFromApi = createAsyncThunk('selectedProduct/fetchIdProductFromApi', async (productId) => {
   try {
     const response = await fetchIdProduct(productId);
-    console.log('check product id:',productId)
-    console.log('>>check id from reducer:',response)
     return response;
   } catch (error) {
     throw error;
@@ -55,7 +51,7 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProductsFromApi.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.products = action.payload;
+        state.products = action.payload; // Update the 'products' field directly
       })
       .addCase(fetchProductsFromApi.rejected, (state, action) => {
         state.status = 'failed';
@@ -66,7 +62,7 @@ const productsSlice = createSlice({
       })
       .addCase(fetchCategoriesFromApi.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.products = action.payload;
+        state.categories = action.payload; // Update the 'categories' field directly
       })
       .addCase(fetchCategoriesFromApi.rejected, (state, action) => {
         state.status = 'failed';
@@ -77,17 +73,14 @@ const productsSlice = createSlice({
       })
       .addCase(fetchIdProductFromApi.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.products = action.payload;
+        state.selectedProduct = action.payload; // Update the 'selectedProduct' field directly
       })
       .addCase(fetchIdProductFromApi.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
-      
   },
 });
-
-
 
 export const { selectProduct } = productsSlice.actions;
 export default productsSlice.reducer;

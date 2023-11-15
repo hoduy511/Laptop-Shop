@@ -2,12 +2,28 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../services/Customize-axios';
 
 const initialState = {
-  usernameRegisterError: "",
-  emailRegisterError: "",
-  password1RegisterError: "",
   verifyEmailStatus: "unknown", // Trạng thái xác minh email
-  accessToken: null,
+  resetPasswordStatus: "unknown",
 };
+
+export const resetPassword = createAsyncThunk('/auth/resetPassword', async (key) =>{
+  try {
+    // Gửi POST request
+    const url = "/password/reset/confirm/";
+    await axios.post(url, { 
+      new_password1: key.password1, 
+      new_password2: key.password2,
+      uid: key.uid,
+      token: key.token
+    });
+
+    // Nếu thành công, trả về "ok"
+    return "ok";
+  } catch (error) {
+    // Nếu có lỗi, trả về "error"
+    throw error;
+  }
+});
 
 // Thêm một Async Thunk để xác minh email
 export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (key) => {
@@ -27,12 +43,7 @@ export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (key) => {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.accessToken = null;
-      // Các xử lý khác khi đăng xuất (nếu cần)
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(verifyEmail.pending, (state) => {
@@ -43,13 +54,20 @@ const authSlice = createSlice({
       })
       .addCase(verifyEmail.rejected, (state) => {
         state.verifyEmailStatus = "error";
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.resetPasswordStatus = "started";
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.resetPasswordStatus = action.payload;
+      })
+      .addCase(resetPassword.rejected, (state) => {
+        state.resetPasswordStatus = "error";
       });
-      
   },
 });
 
-export const { setUsernameRegisterError, setEmailRegisterError, setPassword1RegisterError } = authSlice.actions;
-
 export const getVerifyEmailStatus = (state) => state.auth.verifyEmailStatus;
+export const getResetPasswordStatus = (state) => state.auth.resetPasswordStatus;
 
 export default authSlice.reducer;
