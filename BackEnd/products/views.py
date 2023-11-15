@@ -5,9 +5,8 @@ from products.models import Product, ProductCategory, Review
 from products.permissions import CanReviewProduct
 from products.serializers import (ProductCategoryReadSerializer,
                                   ProductReadSerializer,
-                                  ProductWriteSerializer,
-                                  ReviewWriteSerializer,
-                                  ReviewReadSerializer)
+                                  ProductWriteSerializer, ReviewReadSerializer,
+                                  ReviewWriteSerializer)
 
 # Create your views here.
 
@@ -46,13 +45,13 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
-    
+
     def get_serializer_class(self):
         if self.action in ("create", "update", "partial_update", "destroy"):
             return ReviewWriteSerializer
 
         return ReviewReadSerializer
-    
+
     def get_permissions(self):
         if self.action in ("create", "update", "partial_update", "destroy"):
             self.permission_classes = (CanReviewProduct, )
