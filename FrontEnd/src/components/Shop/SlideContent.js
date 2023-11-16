@@ -99,7 +99,7 @@ const SlideContent = ({ selectedCategory, filterSelect, filter }) => {
                             Brand: <span className='brand-text'>{item.brand ? item.brand : 'NaN'}</span>
                           </div>
                           <div className='card-Text card-text'>
-                            Price: <span className='price-text'>{parseInt(item.price).toString()}</span> ₫
+                            Price: <span className='price-text'>{parseInt(item.price).toLocaleString('en-US').replace(/,/g, '.')}₫</span> 
                           </div>
                           <div className='card-Button'>
                             {/* <button variant="primary" className='mifbtn' onClick={() => selectProductHandler(item)}>More Info</button> */}

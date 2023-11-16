@@ -171,11 +171,11 @@ const Pay = () => {
                 <div className="pay-body">
                     <div>
                         <div>Tổng tạm tính</div>
-                        <div>{loading ? <ReactLoading type={'bubbles'} margin={'auto 0'} color={'gray'} height={15} width={15} /> : totalCost} ₫</div>
+                        <div>{loading ? <ReactLoading type={'bubbles'} margin={'auto 0'} color={'gray'} height={15} width={15} /> : parseInt(totalCost).toLocaleString('en-US').replace(/,/g, '.')} ₫</div>
                     </div>
                     <div>
                       <div>Thành Tiền</div>
-                      <div>{loading ? <ReactLoading type={'bubbles'} margin={'auto 0'} color={'gray'} lineheight={'16px'} height={15} width={15} /> : (totalCost*VAT).toFixed(2)} ₫</div>
+                      <div>{loading ? <ReactLoading type={'bubbles'} margin={'auto 0'} color={'gray'} lineheight={'16px'} height={15} width={15} /> : parseInt(totalCost*VAT).toLocaleString('en-US').replace(/,/g, '.')} ₫</div>
                     </div>
                 </div>
                 <button onClick={handlePay} variant="primary">Thanh Toán</button>

@@ -47,7 +47,7 @@ const SearchBar = () =>{
                 <ul className='search-list'>
                     {isSearching && filteredProducts.map((item) => (
                         <li onClick={()=> handleClick(item)} key={item.id}><img alt="" src={item.image[0]?.image || alt}/> 
-                        <span>{item.name}<br/>{item.price}₫<br/>Brand: {item.brand}</span>
+                        <span>{item.name}<br/>{parseInt(item.price).toLocaleString('en-US').replace(/,/g, '.')}₫<br/>Brand: {item.brand}</span>
                         </li>
                         ))}
                 </ul>

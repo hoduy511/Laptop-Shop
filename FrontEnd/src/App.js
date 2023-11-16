@@ -14,13 +14,11 @@ import ScrollToTop from './components/ScrollToTop';
 import RefreshToken from './components/Authentication/RefreshToken';
 import { logout, selectAccessToken } from './store/slice/userSlice';
 import { verifyToken } from './services/UserService';
-import { useNavigate } from 'react-router-dom';
 
 function App() {
   const isLoggedIn = useSelector(state=>state.user.isLoggedIn)
   const accessToken = useSelector(selectAccessToken);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(()=>{
     verifyAccessToken();

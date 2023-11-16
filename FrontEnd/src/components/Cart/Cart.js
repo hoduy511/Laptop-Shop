@@ -166,14 +166,14 @@ function Cart() {
                 <div>{product ? <img src={image} alt={product.name} /> : 'N/A'}</div>
                 <span>{product ? product.name : 'Product Not Found'}</span>
                 </div></td>
-                <td>${product ? product.price : 'N/A'}</td>
+                <td>{product ? parseInt(product.price).toLocaleString('en-US').replace(/,/g, '.') : 'N/A'}₫</td>
                 <td>
                   <button style={{ color: item.quantity === 1 ? '#333' : null }} onClick={() => handleLessQuantity(item) }><i class="fa-solid fa-minus"></i></button>
                   {item.quantity}
                   <button onClick={() => handleMoreQuantity(item)}><i class="fa-solid fa-plus"></i></button>
                 </td>
                 <td>
-                  <td>${product ? product.price * item.quantity : 'N/A'}</td>
+                  <td>{product ? parseInt(product.price * item.quantity).toLocaleString('en-US').replace(/,/g, '.') : 'N/A'}₫</td>
                 </td>
                 <td>
                   <button onClick={() => handleRemoveItem(item) } disabled={loadingDelete}><i className="fa-solid fa-trash"></i></button>

@@ -128,8 +128,8 @@ const SlideNav = ({ deleteFilter, resetFilter, onFilter, onCategorySelect, onFil
         <div className='order-option'>
           <h2>Sắp xếp theo</h2>
           <ul className='filter'>
-            <li onClick={() => onFilterSelect("PriceHighToLow")}>Giá Cao - Thấp</li>
-            <li onClick={() => onFilterSelect("PriceLowToHigh")}>Giá Thấp - Cao</li>
+            <li onClick={() => onFilterSelect("PriceHighToLow")}>Giá Thấp - Cao</li>
+            <li onClick={() => onFilterSelect("PriceLowToHigh")}>Giá Cao - Thấp</li>
           </ul>
         </div>
       </div>
