@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { createOrders, getOrdersId, getOrdersList, moreQuantity, postOrdersItemToOrders } from "../services/OrderService";
-import { plusQuantity, setTotalQuantity } from "../store/reducers/cartSlice";
-import { logout } from "../store/reducers/userSlice";
+import { plusQuantity, setTotalQuantity } from "../store/slice/cartSlice";
+import { logout } from "../store/slice/userSlice";
 
 
 export const handleAddToCart = async (isLoggedIn, accessToken, item, dispatch, navigate)=>{

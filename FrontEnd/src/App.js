@@ -1,21 +1,40 @@
 import './App.scss';
 
-import React from "react";
-import {useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import {useDispatch, useSelector } from 'react-redux';
 import {ToastContainer} from 'react-toastify';
 
 //Component
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
+import NavBar from './layouts/Header/NavBar';
+import Footer from './layouts/Footer/Footer';
 import AppRouter from './routes/AppRoutes';
 import ScrollToTop from './components/ScrollToTop';
 
 //Auth
-import RefreshToken from './hooks/RefreshToken';
+import RefreshToken from './components/Authentication/RefreshToken';
+import { logout, selectAccessToken } from './store/slice/userSlice';
+import { verifyToken } from './services/UserService';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const isLoggedIn = useSelector(state=>state.user.isLoggedIn)
+  const accessToken = useSelector(selectAccessToken);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  useEffect(()=>{
+    verifyAccessToken();
+  },[])
+
+  const verifyAccessToken = async () =>{
+    try{
+      const response = await verifyToken(accessToken);
+    } catch(err){
+      logout();
+      dispatch(logout());
+    }
+      
+  }
 
 
   return (

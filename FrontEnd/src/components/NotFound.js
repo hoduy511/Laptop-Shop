@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NavBar from "./NavBar";
-import image from '../draw2.webp'
+import NavBar from "../layouts/Header/NavBar";
+import image from '../assets/image/draw2.webp'
 
 const NotFound = () => {
   return (

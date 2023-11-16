@@ -1,23 +1,23 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from '../components/Home';
-import CartPage from "../components/CartPage";
-import Shop from '../components/Shop';
-import Login from '../components/LoginForm';
-import Register from '../components/RegistrationForm';
-import SingleProduct from "../components/SingleProduct";
+import CartPage from "../components/Cart/CartPage";
+import Shop from '../components/Shop/Shop';
+import Login from '../components/Authentication/Login';
+import Register from '../components/Authentication/Register';
+import SingleProduct from "../components/Shop/SingleProduct";
 import Abouts from "../components/About";
-import VerifyEmailView from "../views/VerifyEmailView";
-import UserProfile from "../components/UserProfile";
+import VerifyEmailView from "../components/Authentication/VerifyEmailView";
+import UserProfile from "../components/Authentication/UserProfile";
 import NotFound from "../components/NotFound";
-import FindAccount from "../views/FindAccountView";
+import FindAccount from "../components/Authentication/FindAccountView";
 import CheckEmail from "../views/CheckEmail";
-import ResetPasswordView from "../views/ResetPassWordView";
-import PayHistory from "../components/PayHistory";
-import Success from "../components/Success";
-import Cancel from "../components/Cancel";
-
-import Checkout from "../components/Checkout";
+import ResetPasswordView from "../components/Authentication/ResetPassWordView";
+import ChangingPassword from "../components/Authentication/ChangingPassword";
+import PayHistory from "../components/Stripe/PayHistory";
+import Success from "../components/Stripe/Success";
+import Cancel from "../components/Stripe/Cancel";
+import Checkout from "../components/Stripe/Checkout";
 
 import { REACT_APP_STRIPE_KEY } from '../config/Config';
 import { Elements } from '@stripe/react-stripe-js'
@@ -48,6 +48,7 @@ const AppRouter = () =>{
                 <Route path='/checkout/success/' element={<Success />} />
                 <Route path='/checkout/failed/' element={<Cancel />} />
                 <Route exact path='checkout/' index element={<Checkout />} />
+                <Route path='/user/change-password/' element={<ChangingPassword />} />
                 <Route path='/password-reset/confirm/:uid/:token' element={<ResetPasswordView/>} />
           </Routes>
           </Elements>

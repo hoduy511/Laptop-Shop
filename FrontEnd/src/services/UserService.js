@@ -88,7 +88,7 @@ const getUserProfile = (accessToken) => {
     } 
 }
 
-const resetPassword = (email) => {
+const forgotPassword = (email) => {
     try{
         return axios.post(`/password/reset/`,
                 {
@@ -197,16 +197,63 @@ const changeBio = (accessToken, bio) => {
     } 
 }
 
+const resetPassword = (key) => {
+    try{
+        return axios.post(`/password/reset/confirm/`,{
+            new_password1: key.password1,
+            new_password2: key.password2,
+            uid: key.uid,
+            token: key.token
+        }
+        )
+    } catch(error){
+        console.error('Lấy thông tin thất bại!:',error);
+    } 
+}
+
+const ChangePassword = (accessToken, password1, password2) => {
+    try{
+        return axios.post(`/password/change/`,{
+            new_password1: password1,
+            new_password2: password2,
+        },{
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                },
+        }
+        )
+    } catch(error){
+        console.error('Lấy thông tin thất bại!:',error);
+    } 
+}
+
+const verifyToken = (accessToken) => {
+    try{
+        return axios.post(`/dj-rest-auth/token/verify/`,{
+            token: accessToken
+            // headers: {
+            //     'Authorization': `Bearer ${accessToken}`,
+            //     },
+        }
+        )
+    } catch(error){
+        console.error('Lấy thông tin thất bại!:',error);
+    } 
+}
+
 export {loginApi, 
     registerAPi, 
     logoutApi, 
     getUser, 
     getUserProfile, 
-    resetPassword, 
+    forgotPassword, 
     getAddressList, 
     updateAddressId, 
     deleteAddressId, 
     createNewAddress,
     changeAvatar,
-    changeBio
+    changeBio,
+    resetPassword,
+    ChangePassword,
+    verifyToken
 };

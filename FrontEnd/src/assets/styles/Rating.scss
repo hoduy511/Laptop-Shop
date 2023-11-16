@@ -1,0 +1,41 @@
+@import '../../App.scss';
+
+.rating-container{
+    width: 80%;
+    margin: 15px auto;
+    .text-area{
+        width: 100%;
+        margin-top: 15px;
+    }
+    .text-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;  
+        .text-suggest{
+            color: red;
+            border: 1px dotted red;
+            border-radius: 15px;
+            width: 100%;
+            margin: 5px 0px;
+            font-size: 12px;
+            background-color: #f5f5f5;
+        }
+    }
+    .evaluate-container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .evaluate{
+            background-color: $color-3;
+            transition: all 0.3s;
+            color: $color-1;
+            border-radius: 15px;
+            padding: 5px 15px;
+            &:hover{
+                background-color: $color-4;
+                color: $color-5;
+            }
+        }
+    }
+    
+}

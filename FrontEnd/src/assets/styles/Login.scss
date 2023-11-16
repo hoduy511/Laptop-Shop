@@ -1,0 +1,50 @@
+@import '../../App.scss';
+
+.login-container{
+    .title{
+        font-size: 23px;
+        font-weight: 800;
+    }
+    .login-btn{
+        padding-left: 2.5rem; 
+        padding-right: 2.5rem;
+        width: 180px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .text{
+        font-weight: 600;
+    }
+    .input-wrapper{
+        position: relative;
+
+        span{
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    }
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+    .h-custom {
+        height: calc(100% - 73px);
+    }
+    @media (max-width: 450px) {
+        .h-custom {
+            height: 100%;
+        }
+    }
+
+    .login-btn[disabled], .login-btn:disabled {
+        cursor: not-allowed;
+    }
+}

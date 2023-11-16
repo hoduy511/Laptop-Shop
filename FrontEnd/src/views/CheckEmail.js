@@ -8,7 +8,7 @@ const CheckEmail = () => {
 
   return (
     <div className='check-email'>
-      <p>{email ? `Password reset e-mail has been sent: ${email}` : 'Invalid email address.'}</p>
+      <p>{email ? `Email tạo mới mật khẩu đã được gửi tới: ${email}` : 'Email không hợp lệ.'}</p>
     </div>
   );
 };
