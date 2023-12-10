@@ -219,9 +219,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config()
-EMAIL_HOST_PASSWORD = config()
-DEFAULT_FROM_EMAIL = config()
+EMAIL_HOST_USER = 'shoplaptop85@gmail.com'
+EMAIL_HOST_PASSWORD = 'unlr cgmc trkg utmn'
+DEFAULT_FROM_EMAIL = 'shoplaptop85@gmail.com'
 
 # <EMAIL_CONFIRM_REDIRECT_BASE_URL>/<key>
 EMAIL_CONFIRM_REDIRECT_BASE_URL = \
@@ -241,9 +241,9 @@ TOKEN_LENGTH = 6
 TOKEN_EXPIRE_MINUTES = 3
 
 # Twilio
-TWILIO_ACCOUNT_SID = config()
-TWILIO_AUTH_TOKEN = config()
-TWILIO_PHONE_NUMBER = config()
+TWILIO_ACCOUNT_SID = 'AC2d8d4eaaeb079bf8fd4ce1aeaf281937'
+TWILIO_AUTH_TOKEN = 'fc2ffc404e40e60ead0f4edce942c9df'
+TWILIO_PHONE_NUMBER = '+12314004678'
 
 
 # Static files (CSS, JavaScript, Images)
