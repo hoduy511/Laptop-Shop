@@ -153,10 +153,13 @@ class ProductImage(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
-    rating = models.PositiveIntegerField(default=1, choices=[(i, i) for i in range(1, 6)])
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveIntegerField(
+        default=1, choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

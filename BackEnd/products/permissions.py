@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class CanReviewProduct(permissions.BasePermission):
     message = "You cannot create or edit reviews for this product."
 

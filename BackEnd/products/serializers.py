@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from orders.models import OrderItem
 
+from orders.models import OrderItem
 from products.models import Product, ProductCategory, ProductImage, Review
 
 
@@ -62,9 +62,10 @@ class ProductWriteSerializer(serializers.ModelSerializer):
 
         return super(ProductWriteSerializer, self).update(instance, validated_data)
 
+
 class ReviewWriteSerializer(serializers.ModelSerializer):
     """Serializers for product write reviews"""
-    
+
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
@@ -78,7 +79,8 @@ class ReviewWriteSerializer(serializers.ModelSerializer):
         if OrderItem.objects.filter(order__buyer=user, product=product, order__status='C').exists():
             return data
         else:
-            raise serializers.ValidationError("You cannot review a product you haven't purchased.")
+            raise serializers.ValidationError(
+                "You cannot review a product you haven't purchased.")
 
     def create(self, validated_data):
         product = validated_data.pop('product', None)
@@ -88,6 +90,7 @@ class ReviewWriteSerializer(serializers.ModelSerializer):
         # Ensure 'product' is not included in the validated data to prevent modification
         validated_data.pop('product', None)
         return super().update(instance, validated_data)
+
 
 class ReviewReadSerializer(serializers.ModelSerializer):
     """Serializers for product read reviews"""
